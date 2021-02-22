@@ -1,0 +1,24 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  min-height: 100vh;
+  max-width: 100vw;
+  min-width: 960px;
+  background-image: url('../../../public/bg.png');
+}
+ul{
+ list-style-type: none;
+}
+a{
+  text-align: center;
+  text-decoration: none;
+}
+input,textarea{
+  outline: none;
+}
+textarea:focus{
+  border-color: skyblue;
+}
