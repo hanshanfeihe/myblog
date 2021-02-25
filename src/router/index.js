@@ -10,6 +10,7 @@ import Message from '../components/public/Message.vue'
 import About from '../components/public/about.vue'
 import ArticleDetail from '../components/public/detail.vue'
 import ArticleManage from '../components/admin/articleManage.vue'
+import Login from '../views/Login.vue'
 Vue.use(VueRouter)
 const routes = [
   {
@@ -59,6 +60,11 @@ const routes = [
         props: true
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   }
   // {
   //   path: '/manage',
@@ -66,6 +72,7 @@ const routes = [
   //   component: Manage
   // }
 ]
+
 //解决取消路由跳转时报错问题
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
@@ -76,5 +83,16 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 }
 const router = new VueRouter({
   routes
+})
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Home') {
+    if (!window.localStorage.getItem('token')) {
+      next({ name: 'Login' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 export default router

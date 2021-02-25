@@ -37,11 +37,12 @@ export default {
   // max-width: 1320px;
   width: 100%;
   min-width: 960px;
+  position: relative;
 }
-
 main {
   width: 100%;
   height: 100%;
+  // padding-top: 210px;
   // padding: 20px 20px;
   // background-repeat: no-repeat;
   // background-size: 100%;

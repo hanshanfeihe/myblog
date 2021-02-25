@@ -1,22 +1,31 @@
 <template>
   <!-- blog-header start -->
-  <div class="header">
-    <div class="title" style="color:#fff;">KANGKANG的个人博客</div>
-    <!-- 导航栏start -->
-    <div class="nav">
-      <ul>
-        <li
-          :class="currentIndex === item.id ? 'active' : ''"
-          v-for="item in navList"
-          :key="item.id"
-          @click="toPage(item)"
-        >
-          <i class="fa fa-fw" :class="item.icon" aria-hidden="true"></i>
-          <span>{{ item.name }}</span>
-        </li>
-      </ul>
+  <div class="top">
+    <div class="logo-header">
+      <div class="left logo">
+        <a href="http://192.168.0.103:8080">
+          康康的博客
+        </a>
+      </div>
     </div>
-    <!-- 导航栏end -->
+    <div class="header" :id="isAbsolute ? 'absolute' : ''">
+      <!-- 导航栏start -->
+      <div class="nav">
+        <ul>
+          <li
+            :class="currentIndex === item.id ? 'active' : ''"
+            v-for="item in navList"
+            :key="item.id"
+            @click="toPage(item)"
+          >
+            <i class="fa fa-fw" :class="item.icon" aria-hidden="true"></i>
+            <span>{{ item.name }}</span>
+          </li>
+        </ul>
+      </div>
+      <!-- 导航栏end -->
+    </div>
+    <div style="height:60px;" v-if="isAbsolute"></div>
   </div>
 </template>
 <script>
@@ -50,7 +59,8 @@ export default {
           path: '/about',
           icon: 'fa-male'
         }
-      ]
+      ],
+      isAbsolute: false //是否绝对定位
     }
   },
   methods: {
@@ -73,7 +83,20 @@ export default {
     $route() {
       console.log(this.$route.path)
       this.checkNavId(this.$route.path)
+    },
+    isAbsolute() {
+      console.log(this.isAbsolute)
     }
+  },
+  mounted() {
+    window.addEventListener('scroll', () => {
+      // console.log(document.documentElement.scrollTop)
+      if (document.documentElement.scrollTop > 200) {
+        this.isAbsolute = true
+      } else {
+        this.isAbsolute = false
+      }
+    })
   },
   created() {
     // window.document.body.style.backgroundColor = '#e7e7e7'
@@ -81,28 +104,41 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+#absolute {
+  position: fixed;
+  top: 0;
+  left: 0;
+  // overflow: hidden;
+  z-index: 9999;
+  // margin-bottom: 60px;
+}
+.logo-header {
+  height: 200px;
+  width: 100%;
+  padding: 0 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  // background-color: aquamarine;
+  text-align: center;
+  .logo {
+    a {
+      display: block;
+      text-indent: -99999rem;
+      width: 200px;
+      height: 200px;
+      background-image: url('../../assets/my-logo.png');
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+  }
+}
 .header {
   position: relative;
   width: 100%;
-  height: 200px;
-  background-position: center center;
-  background-image: url('../../../public/bg1.jpg');
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  // background: grey;
-  .title {
-    position: absolute;
-    top: 30%;
-    left: 70px;
-    font-size: 24px;
-    font-weight: 700;
-    font-family: 'DFKai-SB';
-  }
   .nav {
-    position: absolute;
     width: 100%;
-    bottom: 0;
-    left: 0;
     padding: 0 50px;
     color: black;
     font-weight: 700;
