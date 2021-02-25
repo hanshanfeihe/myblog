@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # myblog
 
 ## Project setup
@@ -27,3 +28,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# myblog
+>>>>>>> 8d81a988e72dcdda07343a6d3d59f191198ae672
