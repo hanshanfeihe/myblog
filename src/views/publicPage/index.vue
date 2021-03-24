@@ -2,22 +2,32 @@
   <div id="blog">
     <Header></Header>
     <!-- 内容 start -->
-    <main><router-view /></main>
+    <main>
+      <div class="left"><router-view /></div>
+      <div class="right info">
+        <bloger-info></bloger-info>
+        <new-article></new-article>
+      </div>
+    </main>
     <!-- 内容 end -->
     <my-footer></my-footer>
   </div>
 </template>
 <script>
-import Header from '../../components/public/header'
-import myFooter from '../../components/public/footer'
+import Header from "../../components/public/header";
+import myFooter from "../../components/public/footer";
+import blogerInfo from "../../components/public/blogerInfo.vue";
+import newArticle from "../../components/public/newArticle.vue";
 export default {
-  name: 'Public',
+  name: "Public",
   data() {
-    return {}
+    return {};
   },
   components: {
     Header,
-    myFooter
+    myFooter,
+    blogerInfo,
+    newArticle
   },
   watch: {
     // $route() {
@@ -30,7 +40,7 @@ export default {
   created() {
     // console.log(this.$route.path)
   }
-}
+};
 </script>
 <style lang="less" scoped>
 #blog {
@@ -40,13 +50,13 @@ export default {
   position: relative;
 }
 main {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
-  // padding-top: 210px;
-  // padding: 20px 20px;
-  // background-repeat: no-repeat;
-  // background-size: 100%;
-  // background-position: center center;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
+  .right {
+    padding: 10px;
+  }
 }
 </style>

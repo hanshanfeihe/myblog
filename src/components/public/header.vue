@@ -1,13 +1,6 @@
 <template>
   <!-- blog-header start -->
   <div class="top">
-    <div class="logo-header">
-      <div class="left logo">
-        <a href="http://192.168.0.103:8080">
-          康康的博客
-        </a>
-      </div>
-    </div>
     <div class="header" :id="isAbsolute ? 'absolute' : ''">
       <!-- 导航栏start -->
       <div class="nav">
@@ -30,78 +23,78 @@
 </template>
 <script>
 export default {
-  name: 'Header',
+  name: "Header",
   data() {
     return {
       currentIndex: 1,
       navList: [
         {
           id: 1,
-          name: '首页',
-          path: '/index',
-          icon: 'fa-home'
+          name: "首页",
+          path: "/index",
+          icon: "fa-home"
         },
         {
           id: 2,
-          name: '分类',
-          path: '/category',
-          icon: 'fa-sort'
+          name: "分类",
+          path: "/category",
+          icon: "fa-sort"
         },
         {
           id: 3,
-          name: '留言墙',
-          path: '/message',
-          icon: 'fa-comments-o'
+          name: "留言墙",
+          path: "/message",
+          icon: "fa-comments-o"
         },
         {
           id: 4,
-          name: '关于我',
-          path: '/about',
-          icon: 'fa-male'
+          name: "关于我",
+          path: "/about",
+          icon: "fa-male"
         }
       ],
       isAbsolute: false //是否绝对定位
-    }
+    };
   },
   methods: {
     toPage(item) {
-      if (item.path !== '/category') {
-        this.currentIndex = item.id
-        this.$router.push(item.path)
+      if (item.path !== "/category") {
+        this.currentIndex = item.id;
+        this.$router.push(item.path);
       }
     },
     checkNavId(path) {
-      this.navList.forEach((item) => {
+      this.navList.forEach(item => {
         if (item.path === path) {
           // console.log(item.id)
-          this.currentIndex = item.id
+          this.currentIndex = item.id;
         }
-      })
+      });
     }
   },
   watch: {
     $route() {
-      console.log(this.$route.path)
-      this.checkNavId(this.$route.path)
+      console.log(this.$route.path);
+      this.checkNavId(this.$route.path);
     },
     isAbsolute() {
-      console.log(this.isAbsolute)
+      console.log(this.isAbsolute);
     }
   },
   mounted() {
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       // console.log(document.documentElement.scrollTop)
       if (document.documentElement.scrollTop > 200) {
-        this.isAbsolute = true
+        this.isAbsolute = true;
       } else {
-        this.isAbsolute = false
+        this.isAbsolute = false;
       }
-    })
+    });
   },
   created() {
     // window.document.body.style.backgroundColor = '#e7e7e7'
   }
-}
+};
 </script>
 <style lang="less" scoped>
 #absolute {
@@ -127,7 +120,7 @@ export default {
       text-indent: -99999rem;
       width: 200px;
       height: 200px;
-      background-image: url('../../assets/my-logo.png');
+      background-image: url("../../assets/my-logo.png");
       background-size: 100%;
       background-repeat: no-repeat;
       background-position: center center;

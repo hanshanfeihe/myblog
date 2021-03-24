@@ -186,11 +186,11 @@
   </div>
 </template>
 <script>
-import marked from 'marked'
-import hljs from 'highlight.js'
-import 'highlight.js'
-import 'highlight.js/styles/darcula.css'
-import myButton from '../my-button/index.vue'
+import marked from "marked";
+import hljs from "highlight.js";
+import "highlight.js";
+import "highlight.js/styles/darcula.css";
+import myButton from "../my-button/index.vue";
 // import 'highlight.js/styles/dark.css'
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -205,43 +205,43 @@ marked.setOptions({
   highlight: function(code) {
     // console.log('code', code)
     // return   hljs.highlight(lang, code, false,true).value;
-    return hljs.highlightAuto(code).value
+    return hljs.highlightAuto(code).value;
   }
-})
+});
 export default {
-  name: 'Detail',
+  name: "Detail",
   data() {
     return {
       loaded: false, //内容是否获取
       articleInfo: {},
       commentList: [], //评论列表
       Replies: [], //回复列表
-      sort_name: '',
-      content: '',
-      avatar: '',
-      nickName: '',
-      email: '',
+      sort_name: "",
+      content: "",
+      avatar: "",
+      nickName: "",
+      email: "",
       visitor: {},
-      v_id: '',
-      qq: '',
-      userAvatar: 'avatar.jpg',
-      replyIndex: '',
-      replyName: '',
-      reply_content: '',
+      v_id: "",
+      qq: "",
+      userAvatar: "avatar.jpg",
+      replyIndex: "",
+      replyName: "",
+      reply_content: "",
       replyForm: {
-        from_id: '',
-        to_id: '',
-        reply_content: '',
-        CommentCommentId: '',
-        article_id: ''
+        from_id: "",
+        to_id: "",
+        reply_content: "",
+        CommentCommentId: "",
+        article_id: ""
       },
       showBtn: false
-    }
+    };
   },
   filters: {
     formatTime(val) {
       if (val) {
-        return val.substr(0, 11)
+        return val.substr(0, 11);
       }
       // console.log(typeof val)
     }
@@ -255,57 +255,57 @@ export default {
   components: {
     myButton
   },
-  props: ['id'],
+  props: ["id"],
   methods: {
     getAvatar() {},
     reply(index, item) {
-      this.replyIndex = index
+      this.replyIndex = index;
       // if (index === this.replyIndex) {
       //   this.replyIndex = ''
       // } else {
       //   this.replyIndex = index
       // }
       if (item) {
-        this.replyName = item.from.nickname
+        this.replyName = item.from.nickname;
       }
-      console.log(item)
-      this.replyForm.from_id = this.v_id
-      this.replyForm.to_id = item.from_id
-      this.replyForm.CommentCommentId = item.CommentCommentId
+      console.log(item);
+      this.replyForm.from_id = this.v_id;
+      this.replyForm.to_id = item.from_id;
+      this.replyForm.CommentCommentId = item.CommentCommentId;
     },
     replyP(index, item) {
       if (index === this.replyIndex) {
         if (item.Visitor.nickname !== this.replyName) {
-          this.replyName = item.Visitor.nickname
+          this.replyName = item.Visitor.nickname;
         } else {
-          this.replyIndex = ''
+          this.replyIndex = "";
         }
       } else {
-        this.replyIndex = index
-        this.replyName = item.Visitor.nickname
+        this.replyIndex = index;
+        this.replyName = item.Visitor.nickname;
       }
-      this.replyForm.from_id = this.v_id
-      this.replyForm.to_id = null
-      this.replyForm.CommentCommentId = item.comment_id
-      console.log(item)
+      this.replyForm.from_id = this.v_id;
+      this.replyForm.to_id = null;
+      this.replyForm.CommentCommentId = item.comment_id;
+      console.log(item);
     },
     // 评论回复
     async toReply() {
-      this.replyForm.reply_content = this.reply_content
-      this.replyForm.article_id = this.id
-      console.log(this.replyForm)
+      this.replyForm.reply_content = this.reply_content;
+      this.replyForm.article_id = this.id;
+      console.log(this.replyForm);
       if (this.replyForm.reply_content) {
         const { data: res } = await this.http.post(
-          'http://127.0.0.1:3000/reply/insertreply',
+          "http://127.0.0.1:3000/reply/insertreply",
           this.replyForm
-        )
+        );
         if (res.meta.status === 200) {
-          this.message.success('回复成功')
-          this.replyIndex = ''
-          this.getArticleInfo()
+          this.message.success("回复成功");
+          this.replyIndex = "";
+          this.getArticleInfo();
         } else {
-          this.message.error('回复失败')
-          this.replyIndex = ''
+          this.message.error("回复失败");
+          this.replyIndex = "";
         }
       }
     },
@@ -314,12 +314,12 @@ export default {
         articleId: this.id,
         content: this.content,
         VisitorVId: this.v_id
-      }
+      };
       const { data: res } = await this.http.post(
-        'http://127.0.0.1:3000/comment/insertcomment',
+        "http://127.0.0.1:3000/comment/insertcomment",
         Comment
-      )
-      console.log(res)
+      );
+      console.log(res);
       // window.localStorage.setItem('visitor', {
       //   avatar: Comment.avatar,
       //   url: Comment.url,
@@ -328,95 +328,98 @@ export default {
       // })
     },
     async setVisitor() {
-      this.qq = new RegExp(`[1-9][0-9]{4,}`).exec(this.email)
+      this.qq = new RegExp(`[1-9][0-9]{4,}`).exec(this.email);
       if (this.qq) {
-        this.avatar = 'http://q1.qlogo.cn/g?b=qq&nk=' + this.qq + '&s=100'
+        this.avatar = "http://q1.qlogo.cn/g?b=qq&nk=" + this.qq + "&s=100";
         const data = await this.http.get(
-          'http://api.btstu.cn/qqxt/api.php?qq=' + this.qq
-        )
-        this.nickName = data.data.name
+          "http://api.btstu.cn/qqxt/api.php?qq=" + this.qq
+        );
+        this.nickName = data.data.name;
         this.visitor = {
           nickname: this.nickName,
           email: this.email,
           avatar: this.avatar
-        }
+        };
         if (this.visitor) {
           const { data: res } = await this.http.post(
-            'http://127.0.0.1:3000/visitor/insertvisitor',
+            "http://127.0.0.1:3000/visitor/insertvisitor",
             this.visitor
-          )
+          );
           if (res.meta.status === 200) {
-            this.visitor.v_id = res.data.v_id
-            this.v_id = res.data.v_id
-            window.localStorage.setItem('visitor', JSON.stringify(this.visitor))
+            this.visitor.v_id = res.data.v_id;
+            this.v_id = res.data.v_id;
+            window.localStorage.setItem(
+              "visitor",
+              JSON.stringify(this.visitor)
+            );
           }
         }
       }
     },
     async getArticleInfo() {
       const { data: res } = await this.http.get(
-        'http://127.0.0.1:3000/article/findarticlebyid?id=' + this.id
-      )
-      console.log(JSON.parse(res.data))
-      this.articleInfo = JSON.parse(res.data)
-      this.commentList = this.articleInfo.Comments
+        "http://127.0.0.1:3000/article/findarticlebyid?id=" + this.id
+      );
+      console.log(JSON.parse(res.data));
+      this.articleInfo = JSON.parse(res.data);
+      this.commentList = this.articleInfo.Comments;
       // console.log(this.articleInfo.content)
-      this.articleInfo.content = marked(this.articleInfo.content)
+      this.articleInfo.content = marked(this.articleInfo.content);
       this.articleInfo.content = marked(this.articleInfo.content).replace(
         /<pre>/g,
         "<pre class='hljs'>"
-      )
-      this.sort_name = this.articleInfo.Sort.sort_name
+      );
+      this.sort_name = this.articleInfo.Sort.sort_name;
       setTimeout(() => {
-        this.loaded = true
-      }, 3000)
+        this.loaded = true;
+      }, 3000);
     },
     // 回到顶部动画
     toTop() {
-      clearInterval(time1)
+      clearInterval(time1);
       // window.scroll(0, 0)
       // console.log(document.documentElement)
       // document.documentElement.scrollTop = 0
       let time1 = setInterval(() => {
-        let y = document.documentElement.scrollTop
+        let y = document.documentElement.scrollTop;
         // console.log(y)
         if (y > 0) {
-          document.documentElement.scrollTop = y - 50
+          document.documentElement.scrollTop = y - 50;
         } else {
-          clearInterval(time1)
+          clearInterval(time1);
         }
-      }, 10)
+      }, 10);
     }
   },
   mounted() {
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       // console.log(window.scrollY);
       if (window.scrollY > 750) {
-        this.showBtn = true
+        this.showBtn = true;
       } else {
-        this.showBtn = false
+        this.showBtn = false;
       }
-    })
+    });
   },
   async created() {
     // console.log(this.id)
-    this.getArticleInfo()
+    this.getArticleInfo();
     // console.log(this.articleInfo.content)
 
     // console.log(this.visitor)
-    this.visitor = JSON.parse(window.localStorage.getItem('visitor'))
-    console.log(this.visitor)
+    this.visitor = JSON.parse(window.localStorage.getItem("visitor"));
+    console.log(this.visitor);
     if (this.visitor) {
-      this.nickName = this.visitor.nickname
-      this.avatar = this.visitor.avatar
-      this.v_id = this.visitor.v_id
+      this.nickName = this.visitor.nickname;
+      this.avatar = this.visitor.avatar;
+      this.v_id = this.visitor.v_id;
     }
     // console.log(this.articleInfo.Sort.sort_name)
   }
-}
+};
 </script>
 <style lang="less" scoped>
-@import url('../../assets/css/typo.css');
+@import url("../../assets/css/typo.css");
 .container {
   // position: relative;
   width: 100%;
@@ -508,7 +511,7 @@ export default {
     .title {
       font-size: 26px;
       // color:
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
     .article-about {
       border-bottom: 1px solid skyblue;

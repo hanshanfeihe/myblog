@@ -22,37 +22,37 @@
   </div>
 </template>
 <script>
-import MyButton from '../my-button/index.vue'
+import MyButton from "../my-button/index.vue";
 export default {
-  name: 'myPopconfirm',
+  name: "myPopconfirm",
   data() {
     return {
-      myTitle: '确定删除吗',
+      myTitle: "确定删除吗",
       visible: false
-    }
+    };
   },
   components: {
     MyButton
   },
   methods: {
     show() {
-      console.log(1)
-      this.visible = true
+      console.log(1);
+      this.visible = true;
     },
     confirm(e) {
-      this.visible = false
-      this.$emit('confirm', e)
+      this.visible = false;
+      this.$emit("confirm", e);
     },
     cancel(e) {
-      this.visible = false
-      this.$emit('cancel', e)
+      this.visible = false;
+      this.$emit("cancel", e);
     }
   },
   mounted() {
     // console.log(this.$slots.default[0].elm)
-    this.$slots.default[0].elm.addEventListener('click', this.show)
+    this.$slots.default[0].elm.addEventListener("click", this.show);
   }
-}
+};
 </script>
 <style lang="less" scoped>
 .pop-confirm {
@@ -62,8 +62,10 @@ export default {
 }
 .pop {
   z-index: 99999;
+  padding: 5px 20px;
   position: absolute;
   width: 160px;
+  min-height: 60px;
   top: -70px;
   left: 20%;
   background-color: #fff;
@@ -82,8 +84,7 @@ export default {
     position: absolute;
     width: 8px;
     height: 8px;
-    left: 15px;
-    top: 62px;
+    top: 68px;
     background-color: #fff;
     transform: rotate(45deg);
   }

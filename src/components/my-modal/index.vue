@@ -15,16 +15,16 @@
   </div>
 </template>
 <script>
-import myButton from '../my-button/index.vue'
+import myButton from "../my-button/index.vue";
 export default {
-  name: 'MyModal',
+  name: "MyModal",
   components: {
     myButton
   },
   data() {
     return {
       titleValue: this.title
-    }
+    };
   },
   props: {
     isOpen: {
@@ -33,28 +33,28 @@ export default {
     },
     title: {
       type: String,
-      default: 'Title'
+      default: "Title"
     }
   },
   methods: {
     cancel() {
-      this.$emit('cancel')
+      this.$emit("cancel");
     },
-    OK(){
-      this.$emit('confirm')
+    OK() {
+      this.$emit("confirm");
     }
   },
   created() {
     window.addEventListener(
-      'scroll',
-      (e) => {
-        e.returnvalue = false
-        e.preventDefault()
+      "scroll",
+      e => {
+        e.returnvalue = false;
+        e.preventDefault();
       },
       false
-    )
+    );
   }
-}
+};
 </script>
 <style lang="less" scoped>
 .my-modal {

@@ -7,7 +7,7 @@
           <th
             v-for="(item, index) in columns"
             :key="index"
-            :style="'width:' + item.width + 'px'"
+            :style="'min-width:' + item.width + 'px'"
           >
             {{ item.title }}
           </th>
@@ -27,28 +27,28 @@
 </template>
 <script>
 export default {
-  name: 'MyTable',
+  name: "MyTable",
   props: {
     data: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     },
     tHead: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     },
     columns: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 table {
@@ -63,6 +63,7 @@ table {
   }
   td {
     line-height: 30px;
+    padding: 15px;
   }
   th {
     background-color: #ededed;

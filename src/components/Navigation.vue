@@ -23,39 +23,39 @@
 </template>
 <script>
 export default {
-  name: 'Navgation',
+  name: "Navgation",
   data() {
     return {
       navArray: [
         {
           id: 0,
-          val: '首页',
-          path: '/user'
+          val: "首页",
+          path: "/user"
         },
         {
           id: 1,
-          val: '管理',
-          path: '/user/manage'
+          val: "管理",
+          path: "/user/manage"
         },
         {
           id: 2,
-          val: '写文章',
-          path: '/user/writearticle'
+          val: "写文章",
+          path: "/user/writearticle"
         },
         {
           id: 3,
-          val: '关于我',
-          path: '/user/about'
+          val: "关于我",
+          path: "/user/about"
         }
       ],
       y: 0,
       flag: 0,
       currentIndex: 0
-    }
+    };
   },
   mounted() {
     // window.addEventListener('scroll', this.scrollTop)
-    this.checkRouterLocal(this.$route.path)
+    this.checkRouterLocal(this.$route.path);
     // console.log(this.$route.path)
   },
   methods: {
@@ -76,27 +76,27 @@ export default {
         // console.log(this.currentIndex)
         // console.log(this.navArray[id].path)
         // console.log(this.$router)
-        this.$router.push(this.navArray[id].path)
+        this.$router.push(this.navArray[id].path);
       }
       // console.log(id)
     },
     checkRouterLocal(path) {
       // 查找当前路由下标高亮
-      this.currentIndex = this.navArray.findIndex((item) => item.path === path)
+      this.currentIndex = this.navArray.findIndex(item => item.path === path);
       // console.log(this.currentIndex)
     }
   },
   watch: {
     $route() {
       // 获取当前路径
-      let path = this.$route.path
+      let path = this.$route.path;
       // console.log(path)
       // 获取当前路由下标
-      this.checkRouterLocal(path)
-      console.log(this.currentIndex)
+      this.checkRouterLocal(path);
+      console.log(this.currentIndex);
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 #Navgation {
@@ -145,7 +145,7 @@ export default {
       }
       li:after {
         position: absolute;
-        content: '';
+        content: "";
         display: block;
         top: 58px;
         left: 50%;

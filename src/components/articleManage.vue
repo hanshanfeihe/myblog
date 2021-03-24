@@ -1,8 +1,10 @@
 <template>
   <div class="manage">
-    <div class="manage-header">
-      文章管理
-    </div>
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>博客管理</el-breadcrumb-item>
+      <el-breadcrumb-item>文章管理</el-breadcrumb-item>
+    </el-breadcrumb>
     <div class="article-manage">
       <my-table :columns="propData" :data="articleList">
         <template slot="option" slot-scope="rowData">
@@ -133,12 +135,12 @@
   </div>
 </template>
 <script>
-import MyTable from '../components/my-table/index.vue'
-import myButton from '../components/my-button/index.vue'
-import myModal from '../components/my-modal/index.vue'
-import myPopconfirm from '../components/my-popconfirm/index.vue'
+import MyTable from "../components/my-table/index.vue";
+import myButton from "../components/my-button/index.vue";
+import myModal from "../components/my-modal/index.vue";
+import myPopconfirm from "../components/my-popconfirm/index.vue";
 export default {
-  name: 'articleManage',
+  name: "articleManage",
   components: {
     MyTable,
     myButton,
@@ -150,278 +152,278 @@ export default {
       articleList: [],
       sortList: [],
       tagList: [],
-      search_sort_name: '',
-      search_tag_name: '',
+      search_sort_name: "",
+      search_tag_name: "",
       sortDialogVisible: false,
       tagDialogVisible: false,
       newSortDialogVisible: false,
       newTagDialogVisible: false,
-      title: ['id', '名称', '日期', '分类'],
-      new_sort_name: '',
-      new_tag_name: '',
+      title: ["id", "名称", "日期", "分类"],
+      new_sort_name: "",
+      new_tag_name: "",
       update_SortForm: {
-        sort_id: '',
-        sort_name: ''
+        sort_id: "",
+        sort_name: ""
       },
       update_TagForm: {
-        tag_id: '',
-        tag_name: ''
+        tag_id: "",
+        tag_name: ""
       },
       propData: [
         {
-          title: 'id',
-          width: '150',
-          key: 'id'
+          title: "id",
+          width: "150",
+          key: "id"
         },
         {
-          title: '名称',
-          width: '350',
-          key: 'title'
+          title: "名称",
+          width: "350",
+          key: "title"
         },
         {
-          title: '日期',
-          width: '350',
-          key: 'create_time'
+          title: "日期",
+          width: "350",
+          key: "create_time"
         },
         {
-          title: '分类',
-          width: '250',
-          key: 'sort_id'
+          title: "分类",
+          width: "250",
+          key: "sort_id"
         },
         {
-          title: '操作',
-          width: '250',
-          slotName: 'option'
+          title: "操作",
+          width: "250",
+          slotName: "option"
         }
       ],
       sortSetting: [
         {
-          title: 'id',
-          width: '150',
-          key: 'sort_id'
+          title: "id",
+          width: "150",
+          key: "sort_id"
         },
         {
-          title: '分类名称',
-          width: '300',
-          key: 'sort_name'
+          title: "分类名称",
+          width: "300",
+          key: "sort_name"
         },
         {
-          title: '创建时间',
-          width: '200',
-          key: 'createdAt'
+          title: "创建时间",
+          width: "200",
+          key: "createdAt"
         },
         {
-          title: '操作',
-          width: '300',
-          slotName: 'option'
+          title: "操作",
+          width: "300",
+          slotName: "option"
         }
       ],
       tagSetting: [
         {
-          title: 'id',
-          width: '150',
-          key: 'tag_id'
+          title: "id",
+          width: "150",
+          key: "tag_id"
         },
         {
-          title: '标签名称',
-          width: '300',
-          key: 'tag_name'
+          title: "标签名称",
+          width: "300",
+          key: "tag_name"
         },
         {
-          title: '创建时间',
-          width: '200',
-          key: 'createdAt'
+          title: "创建时间",
+          width: "200",
+          key: "createdAt"
         },
         {
-          title: '操作',
-          width: '300',
-          slotName: 'option'
+          title: "操作",
+          width: "300",
+          slotName: "option"
         }
       ]
-    }
+    };
   },
   methods: {
     async getAllArticles() {
       const { data: res } = await this.http.get(
-        'http://127.0.0.1:3000/article/getarticle'
-      )
-      console.log(res)
-      this.articleList = res.data
-      this.articleList = JSON.parse(this.articleList)
-      console.log(this.articleList)
+        "http://127.0.0.1:3000/article/getarticle"
+      );
+      console.log(res);
+      this.articleList = res.data;
+      this.articleList = JSON.parse(this.articleList);
+      console.log(this.articleList);
     },
     async getAllSorts() {
       const { data: res } = await this.http.get(
-        'http://127.0.0.1:3000/sort/getsortlists'
-      )
-      console.log(res)
-      this.sortList = res.data
-      this.sortList = JSON.parse(this.sortList)
-      console.log(this.sortList)
+        "http://127.0.0.1:3000/sort/getsortlists"
+      );
+      console.log(res);
+      this.sortList = res.data;
+      this.sortList = JSON.parse(this.sortList);
+      console.log(this.sortList);
     },
     async getAllTags() {
       const { data: res } = await this.http.get(
-        'http://127.0.0.1:3000/tag/gettaglists'
-      )
-      console.log(res)
-      this.tagList = res.data
-      this.tagList = JSON.parse(this.tagList)
-      console.log(this.tagList)
+        "http://127.0.0.1:3000/tag/gettaglists"
+      );
+      console.log(res);
+      this.tagList = res.data;
+      this.tagList = JSON.parse(this.tagList);
+      console.log(this.tagList);
     },
     editArticle(id) {
-      console.log(id)
+      console.log(id);
     },
     editSort(item) {
-      this.update_SortForm.sort_name = item.sort_name
-      this.update_SortForm.sort_id = item.sort_id
-      console.log(this.update_SortForm)
-      this.sortDialogVisible = true
+      this.update_SortForm.sort_name = item.sort_name;
+      this.update_SortForm.sort_id = item.sort_id;
+      console.log(this.update_SortForm);
+      this.sortDialogVisible = true;
     },
     editTag(item) {
-      this.update_TagForm.tag_name = item.tag_name
-      this.update_TagForm.tag_id = item.tag_id
-      this.tagDialogVisible = true
+      this.update_TagForm.tag_name = item.tag_name;
+      this.update_TagForm.tag_id = item.tag_id;
+      this.tagDialogVisible = true;
     },
     addSort() {
-      this.newSortDialogVisible = true
+      this.newSortDialogVisible = true;
     },
     addTag() {
-      this.newTagDialogVisible = true
+      this.newTagDialogVisible = true;
     },
     cancel_update() {
-      this.sort_name = ''
-      this.sortDialogVisible = false
+      this.sort_name = "";
+      this.sortDialogVisible = false;
     },
     tag_cancel_update() {
-      this.tag_name = ''
-      this.tagDialogVisible = false
+      this.tag_name = "";
+      this.tagDialogVisible = false;
     },
     cancel_new() {
-      this.new_sort_name = ''
-      this.newSortDialogVisible = false
+      this.new_sort_name = "";
+      this.newSortDialogVisible = false;
     },
     cancel_tag_new() {
-      this.new_tag_name = ''
-      this.newTagDialogVisible = false
+      this.new_tag_name = "";
+      this.newTagDialogVisible = false;
     },
     async sentTagForm() {
       if (this.new_tag_name) {
         const { data: res } = await this.http.post(
-          'http://127.0.0.1:3000/tag/inserttag',
+          "http://127.0.0.1:3000/tag/inserttag",
           {
             tag_name: this.new_tag_name
           }
-        )
+        );
         if (res.meta.status === 200) {
-          this.newTagDialogVisible = false
-          this.new_tag_name = ''
-          this.message.success('添加成功')
-          this.getAllTags()
+          this.newTagDialogVisible = false;
+          this.new_tag_name = "";
+          this.message.success("添加成功");
+          this.getAllTags();
         }
       }
     },
     async sentSortForm() {
       if (this.new_sort_name) {
         const { data: res } = await this.http.post(
-          'http://127.0.0.1:3000/sort/insertsort',
+          "http://127.0.0.1:3000/sort/insertsort",
           {
             sort_name: this.new_sort_name
           }
-        )
-        console.log(res.meta.status)
-        console.log(typeof res.meta.status)
+        );
+        console.log(res.meta.status);
+        console.log(typeof res.meta.status);
         if (res.meta.status === 200) {
-          this.newSortDialogVisible = false
-          this.new_sort_name = ''
-          this.message.success('添加成功')
-          this.getAllSorts()
+          this.newSortDialogVisible = false;
+          this.new_sort_name = "";
+          this.message.success("添加成功");
+          this.getAllSorts();
         }
       }
     },
     async updateSortForm() {
-      console.log(this.update_SortForm)
+      console.log(this.update_SortForm);
       const { data: res } = await this.http.put(
-        'http://127.0.0.1:3000/sort/updatesort',
+        "http://127.0.0.1:3000/sort/updatesort",
         this.update_SortForm
-      )
-      console.log(res)
+      );
+      console.log(res);
       if (res.meta.status === 200) {
-        this.sortDialogVisible = false
-        this.getAllSorts()
-        this.message.success('更新成功')
+        this.sortDialogVisible = false;
+        this.getAllSorts();
+        this.message.success("更新成功");
       }
     },
     async updateTagForm() {
-      console.log(this.update_TagForm)
+      console.log(this.update_TagForm);
       const { data: res } = await this.http.put(
-        'http://127.0.0.1:3000/tag/updatetag',
+        "http://127.0.0.1:3000/tag/updatetag",
         this.update_TagForm
-      )
-      console.log(res)
+      );
+      console.log(res);
       if (res.meta.status === 200) {
-        this.tagDialogVisible = false
-        this.getAllTags()
-        this.message.success('更新成功')
+        this.tagDialogVisible = false;
+        this.getAllTags();
+        this.message.success("更新成功");
       }
     },
     async articlepopConfirm(id) {
       const { data: res } = await this.http.delete(
-        'http://127.0.0.1:3000/article/deletearticle?id=' + id
-      )
-      console.log(res)
+        "http://127.0.0.1:3000/article/deletearticle?id=" + id
+      );
+      console.log(res);
       if (res.meta.status === 200) {
-        this.getAllArticles()
-        this.message.success('成功删除')
+        this.getAllArticles();
+        this.message.success("成功删除");
       } else {
-        this.message.error('删除失败')
+        this.message.error("删除失败");
       }
     },
     async popConfirm(id) {
       const { data: res } = await this.http.delete(
-        'http://127.0.0.1:3000/sort/deletesort?id=' + id
-      )
-      console.log(res)
+        "http://127.0.0.1:3000/sort/deletesort?id=" + id
+      );
+      console.log(res);
       if (res.meta.status === 200) {
-        this.getAllSorts()
-        this.message.success('成功删除')
+        this.getAllSorts();
+        this.message.success("成功删除");
       } else {
-        this.message.error('删除失败')
+        this.message.error("删除失败");
       }
     },
     async tag_popConfirm(id) {
       const { data: res } = await this.http.delete(
-        'http://127.0.0.1:3000/tag/deletetag?id=' + id
-      )
-      console.log(res)
+        "http://127.0.0.1:3000/tag/deletetag?id=" + id
+      );
+      console.log(res);
       if (res.meta.status === 200) {
-        this.getAllTags()
-        this.message.success('成功删除')
+        this.getAllTags();
+        this.message.success("成功删除");
       } else {
-        this.message.error('删除失败')
+        this.message.error("删除失败");
       }
     },
     articlepopCancel() {
-      this.message.success('取消删除')
+      this.message.success("取消删除");
     },
     popCancel() {
-      this.message.success('取消删除')
+      this.message.success("取消删除");
     },
     tag_popCancel() {
-      this.message.success('取消删除')
+      this.message.success("取消删除");
     },
     async searchSort() {
       if (this.search_sort_name) {
         const { data: res } = await this.http.get(
-          'http://127.0.0.1:3000/sort/getsortbyname?sort_name=' +
+          "http://127.0.0.1:3000/sort/getsortbyname?sort_name=" +
             this.search_sort_name
-        )
-        console.log(res)
+        );
+        console.log(res);
         if (res.meta.status === 200) {
           if (JSON.parse(res.data).length !== 0) {
-            this.message.success('查找成功')
-            this.sortList = JSON.parse(res.data)
+            this.message.success("查找成功");
+            this.sortList = JSON.parse(res.data);
           } else {
-            this.message.error('查无此记录')
+            this.message.error("查无此记录");
           }
         }
       }
@@ -429,16 +431,16 @@ export default {
     async searchTag() {
       if (this.search_tag_name) {
         const { data: res } = await this.http.get(
-          'http://127.0.0.1:3000/tag/gettagbyname?tag_name=' +
+          "http://127.0.0.1:3000/tag/gettagbyname?tag_name=" +
             this.search_tag_name
-        )
-        console.log(res)
+        );
+        console.log(res);
         if (res.meta.status === 200) {
           if (JSON.parse(res.data).length !== 0) {
-            this.message.success('查找成功')
-            this.tagList = JSON.parse(res.data)
+            this.message.success("查找成功");
+            this.tagList = JSON.parse(res.data);
           } else {
-            this.message.error('查无此记录')
+            this.message.error("查无此记录");
           }
         }
       }
@@ -447,22 +449,22 @@ export default {
   watch: {
     search_sort_name: function() {
       if (!this.search_sort_name) {
-        this.getAllSorts()
+        this.getAllSorts();
       }
     },
     search_tag_name: function() {
       if (!this.search_tag_name) {
-        this.getAllTags()
+        this.getAllTags();
       }
     }
   },
   created() {
     //获取所有文章列表
-    this.getAllArticles()
-    this.getAllSorts()
-    this.getAllTags()
+    this.getAllArticles();
+    this.getAllSorts();
+    this.getAllTags();
   }
-}
+};
 </script>
 <style lang="less" scoped>
 .manage {

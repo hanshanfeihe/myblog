@@ -1,69 +1,87 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import WriteArticle from '../components/WriteArticle.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
+import WriteArticle from "../components/WriteArticle.vue";
 // import Index from '../components/Index.vue'
 // import Manage from '../components/articleManage.vue'
-import Public from '../views/publicPage/index.vue'
-import publicIndex from '../components/public/index.vue'
-import Message from '../components/public/Message.vue'
-import About from '../components/public/about.vue'
-import ArticleDetail from '../components/public/detail.vue'
-import ArticleManage from '../components/admin/articleManage.vue'
-import Login from '../views/Login.vue'
-Vue.use(VueRouter)
+import Public from "../views/publicPage/index.vue";
+import publicIndex from "../components/public/index.vue";
+import Message from "../components/public/Message.vue";
+import About from "../components/public/about.vue";
+import ArticleDetail from "../components/public/detail.vue";
+import ArticleManage from "../components/admin/articleManage.vue";
+import Login from "../views/Login.vue";
+import SortManage from "../components/admin/sortManage.vue";
+import TagManage from "../components/admin/tagManage.vue";
+import ManageInfo from "../components/admin/manage_info.vue";
+Vue.use(VueRouter);
 const routes = [
   {
-    path: '/user',
-    name: 'Home',
+    path: "/manage",
+    name: "Home",
     component: Home,
     children: [
       {
-        path: '/user/info/writearticle',
-        name: 'WriteArticle',
+        path: "/writearticle",
+        name: "WriteArticle",
         component: WriteArticle,
         props: true
       },
       {
-        path: '/user/manage/articlemanage',
-        name: 'ArticleManage',
+        path: "/sortManage",
+        name: "SortManage",
+        component: SortManage
+      },
+      {
+        path: "/tagManage",
+        name: "TagManage",
+        component: TagManage
+      },
+      {
+        path: "/articlemanage",
+        name: "ArticleManage",
         component: ArticleManage
+      },
+      {
+        path: "/manage_info",
+        name: "manage_info",
+        component: ManageInfo
       }
     ]
   },
   {
-    path: '/',
+    path: "/",
     // name: 'public',
     component: Public,
     // name: 'Index',
-    redirect: '/index',
+    redirect: "/index",
     children: [
       {
-        path: '/index',
-        name: 'publicIndex',
+        path: "/index",
+        name: "publicIndex",
         component: publicIndex
       },
       {
-        path: '/message',
+        path: "/message",
         component: Message,
-        name: 'Message'
+        name: "Message"
       },
       {
-        path: '/about',
+        path: "/about",
         component: About,
-        name: 'About'
+        name: "About"
       },
       {
-        path: '/article/:id',
+        path: "/article/:id",
         component: ArticleDetail,
-        name: 'article/id',
+        name: "article/id",
         props: true
       }
     ]
   },
   {
-    path: '/login',
-    name: 'Login',
+    path: "/login",
+    name: "Login",
     component: Login
   }
   // {
@@ -71,28 +89,29 @@ const routes = [
   //   name: 'Manage',
   //   component: Manage
   // }
-]
+];
 
 //解决取消路由跳转时报错问题
-const originalPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
   if (onResolve || onReject) {
-    return originalPush.call(this, location, onResolve, onReject)
+    return originalPush.call(this, location, onResolve, onReject);
   }
-  return originalPush.call(this, location).catch((err) => err)
-}
+  return originalPush.call(this, location).catch(err => err);
+};
 const router = new VueRouter({
   routes
-})
+});
 router.beforeEach((to, from, next) => {
-  if (to.name === 'Home') {
-    if (!window.localStorage.getItem('token')) {
-      next({ name: 'Login' })
+  if (to.name === "Home") {
+    if (!window.localStorage.getItem("token")) {
+      console.log("haha");
+      next({ name: "Login" });
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
-})
-export default router
+});
+export default router;

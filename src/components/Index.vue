@@ -12,29 +12,29 @@
   </div>
 </template>
 <script>
-import blogItem from './my-blogItem/index.vue'
+import blogItem from "./my-blogItem/index.vue";
 export default {
-  name: 'Index',
+  name: "Index",
   data() {
     return {
       articleInfo: [],
-      content: ''
-    }
+      content: ""
+    };
   },
   components: {
     blogItem
   },
   async created() {
     const { data: res } = await this.http.get(
-      'http://127.0.0.1:3000/article/getarticle'
-    )
-    console.log(res)
-    this.articleInfo = res.data
-    this.articleInfo = JSON.parse(this.articleInfo)
-    console.log(this.articleInfo)
+      "http://127.0.0.1:3000/article/getarticle"
+    );
+    console.log(res);
+    this.articleInfo = res.data;
+    this.articleInfo = JSON.parse(this.articleInfo);
+    console.log(this.articleInfo);
     // this.content = this.articleInfo[0].content
   }
-}
+};
 </script>
 <style lang="less" scoped>
 .container {

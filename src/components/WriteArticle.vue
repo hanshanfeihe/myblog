@@ -101,47 +101,47 @@
 </template>
 <script>
 // import TinymceEditor from '../components/tinymce-editor/index.vue'
-import mySelector from '../components/my-select/index.vue'
-import myButton from '../components/my-button/index.vue'
-import mySelectItem from '../components/my-select/my-selectItem/index.vue'
-import tagItem from '../components/my-tag/tag.vue'
-import Vditor from '../components/vditor/index.vue'
+import mySelector from "../components/my-select/index.vue";
+import myButton from "../components/my-button/index.vue";
+import mySelectItem from "../components/my-select/my-selectItem/index.vue";
+import tagItem from "../components/my-tag/tag.vue";
+import Vditor from "../components/vditor/index.vue";
 // import myModal from '../components/my-modal/index.vue'
 // import 'prism'
 export default {
-  name: 'WriteManage',
+  name: "WriteManage",
   data() {
     return {
       flag: false,
-      saveTime: '',
+      saveTime: "",
       // 表单内容
-      data: '',
-      imgFile: '', //上传的博客封面图片文件
-      src: '',
-      c_Id: '2',
+      data: "",
+      imgFile: "", //上传的博客封面图片文件
+      src: "",
+      c_Id: "2",
       categoryList: [],
       tagList: [],
       article: {
-        content: '', //文章内容
-        title: '', //文章标题
-        status: '1', //文章状态
+        content: "", //文章内容
+        title: "", //文章标题
+        status: "1", //文章状态
         SortSortId: 0, //文章分类
-        blog_desc: '', //文章描述
-        blog_cover: '', //博客文章封面
+        blog_desc: "", //文章描述
+        blog_cover: "", //博客文章封面
         selectTagIds: []
       },
       ctfTitle: false //标题输入验证
-    }
+    };
   },
   filters: {
     // 过滤器 将文件大小转换成对应单位显示
     returnFileSize: function(number) {
       if (number < 1024) {
-        return number + 'bytes'
+        return number + "bytes";
       } else if (number > 1024 && number < 1048576) {
-        return (number / 1024).toFixed(2) + 'KB'
+        return (number / 1024).toFixed(2) + "KB";
       } else if (number >= 1048576) {
-        return (number / 1048576).toFixed(2) + 'MB'
+        return (number / 1048576).toFixed(2) + "MB";
       }
     }
   },
@@ -150,7 +150,7 @@ export default {
   },
   watch: {
     data() {
-      this.article.content = this.data
+      this.article.content = this.data;
     }
   },
   components: {
@@ -165,111 +165,112 @@ export default {
   mounted() {},
   methods: {
     async showContent() {
-      console.log(this.article)
+      console.log(this.article);
       const { data: res } = await this.http.post(
-        'http://127.0.0.1:3000/article/insertarticle',
+        "http://127.0.0.1:3000/article/insertarticle",
         this.article
-      )
+      );
       if (res.meta.status === 200) {
-        this.message.success('添加文章成功')
+        this.message.success("添加文章成功");
       } else {
-        this.message.error('添加文章失败')
+        this.message.error("添加文章失败");
       }
     },
     showContent2() {
-      console.log(this.article.content)
+      console.log(this.article.content);
     },
     async updateContent() {
-      console.log(this.article)
+      // console.log(this.article);
       const { data: res } = await this.http.put(
-        'http://127.0.0.1:3000/article/updatearticle',
+        "http://127.0.0.1:3000/article/updatearticle",
         this.article
-      )
+      );
+      console.log(res);
       if (res.meta.status === 200) {
-        this.message.success('更新成功')
+        this.message.success("更新成功");
       }
     },
     showTip() {
       if (!this.article.title) {
         // alert('标题不能为空')
-        this.ctfTitle = true
+        this.ctfTitle = true;
       } else {
-        this.ctfTitle = false
+        this.ctfTitle = false;
       }
     },
     async show(e) {
-      console.log(e)
-      this.imgFile = e.target.files[0]
+      console.log(e);
+      this.imgFile = e.target.files[0];
       if (this.imgFile) {
-        this.src = URL.createObjectURL(this.imgFile)
+        this.src = URL.createObjectURL(this.imgFile);
         //表单对象
-        let formData = new FormData()
-        formData.append('file', this.imgFile)
+        let formData = new FormData();
+        formData.append("file", this.imgFile);
         const { data: res } = await this.http.post(
-          'http://127.0.0.1:3000/upload/uploadimg',
+          "http://127.0.0.1:3000/upload/uploadimg",
           formData
-        )
-        console.log(res)
+        );
+        console.log(res);
         if (res.meta.status === 200) {
-          this.article.blog_cover = res.data.url
+          this.article.blog_cover = res.data.url;
         } else {
-          this.article.blog_cover = ''
+          this.article.blog_cover = "";
         }
       }
-      console.log(this.imgFile)
+      console.log(this.imgFile);
     },
     async getCategoryList() {
       const { data: res } = await this.http.get(
-        'http://127.0.0.1:3000/sort/getsortlists'
-      )
+        "http://127.0.0.1:3000/sort/getsortlists"
+      );
       // console.log(res)
       if (res.meta.status === 200) {
-        this.categoryList = JSON.parse(res.data)
+        this.categoryList = JSON.parse(res.data);
       }
       // console.log(this.categoryList[0].sort_id)
     },
     async getTagList() {
       const { data: res } = await this.http.get(
-        'http://127.0.0.1:3000/tag/gettaglists'
-      )
+        "http://127.0.0.1:3000/tag/gettaglists"
+      );
       // console.log(res)
       if (res.meta.status === 200) {
-        this.tagList = JSON.parse(res.data)
+        this.tagList = JSON.parse(res.data);
       }
-      console.log(this.tagList[0].tag_id)
+      console.log(this.tagList[0].tag_id);
     }
   },
   async created() {
-    console.log(this.id)
-    console.log(this.$route.params)
+    console.log(this.id);
+    console.log(this.$route.params);
     if (this.$route.params.id) {
       const { data: res } = await this.http.get(
-        'http://127.0.0.1:3000/article/findarticlebyid?id=' + this.id
-      )
-      console.log(JSON.parse(res.data))
-      this.article = JSON.parse(res.data)
-      console.log(this.article)
-      this.article.selectTagIds = []
-      this.article.Tags.forEach((item) => {
-        this.article.selectTagIds.push(item.tag_id)
-      })
-      this.flag = true
+        "http://127.0.0.1:3000/article/findarticlebyid?id=" + this.id
+      );
+      console.log(JSON.parse(res.data));
+      this.article = JSON.parse(res.data);
+      console.log(this.article);
+      this.article.selectTagIds = [];
+      this.article.Tags.forEach(item => {
+        this.article.selectTagIds.push(item.tag_id);
+      });
+      this.flag = true;
     }
-    this.getCategoryList(), this.getTagList()
-    this.flag = true
+    this.getCategoryList(), this.getTagList();
+    this.flag = true;
   },
   beforeRouteLeave(to, from, next) {
-    console.log(from.name)
-    if (from.name === 'WriteArticle') {
-      const answer = window.confirm('当前页面数据未保存，确定要离开？')
+    console.log(from.name);
+    if (from.name === "WriteArticle") {
+      const answer = window.confirm("当前页面数据未保存，确定要离开？");
       if (answer) {
-        next()
+        next();
       } else {
-        next(false)
+        next(false);
       }
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 #blog-manage {

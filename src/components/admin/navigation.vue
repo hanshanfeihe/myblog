@@ -30,99 +30,99 @@
 </template>
 <script>
 export default {
-  name: 'Navigation',
+  name: "Navigation",
   data() {
     return {
       isActive: false,
       navList: [
         {
           id: 1,
-          name: '管理',
+          name: "管理",
           child: [
             {
-              name: '文章管理',
-              cid: '1-1',
-              path: '/user/manage/articlemanage'
+              name: "文章管理",
+              cid: "1-1",
+              path: "/user/manage/articlemanage"
             },
             {
-              name: '分类管理',
-              cid: '1-2',
-              path: '/manage/sort'
+              name: "分类管理",
+              cid: "1-2",
+              path: "/user/manage/sortmanage"
             },
             {
-              name: '标签管理',
-              cid: '1-3',
-              path: '/manage/tag'
+              name: "标签管理",
+              cid: "1-3",
+              path: "/user/manage/tagmanage"
             }
           ]
         },
         {
           id: 2,
-          name: '个人中心',
+          name: "个人中心",
           child: [
             {
-              cid: '2-1',
-              name: '信息管理',
-              path: '/user/info/person'
+              cid: "2-1",
+              name: "信息管理",
+              path: "/user/info/manage_info"
             },
             {
-              cid: '2-2',
-              name: '写文章',
-              path: '/user/info/writearticle'
+              cid: "2-2",
+              name: "写文章",
+              path: "/user/info/writearticle"
             }
           ]
         }
       ],
       currentIndex: 1,
-      currentChildIndex: '1-1',
+      currentChildIndex: "1-1",
       childActive: 1
-    }
+    };
   },
   watch: {
     currentChildIndex() {
-      this.childActive = Number(this.currentChildIndex.charAt('0'))
-      console.log(this.childActive)
+      this.childActive = Number(this.currentChildIndex.charAt("0"));
+      console.log(this.childActive);
     },
     $route() {
-      let path = this.$route.path
-      console.log(path)
-      this.checkCurrentIndex(path)
+      let path = this.$route.path;
+      console.log(path);
+      this.checkCurrentIndex(path);
     }
   },
   methods: {
     showChildNav(item) {
       if (this.currentIndex !== item.id) {
-        this.currentIndex = item.id
+        this.currentIndex = item.id;
       } else {
-        this.currentIndex = 0
+        this.currentIndex = 0;
       }
     },
     checkCurrentIndex(path) {
-      console.log(this.currentIndex)
-      console.log(this.navList[this.currentIndex - 1].child)
-      this.navList.forEach((item) => {
-        item.child.forEach((citem) => {
+      console.log(this.currentIndex);
+      console.log(this.navList[this.currentIndex - 1].child);
+      this.navList.forEach(item => {
+        item.child.forEach(citem => {
           if (citem.path === path) {
-            this.currentChildIndex = citem.cid
+            this.currentChildIndex = citem.cid;
           }
-        })
+        });
         // this.currentIndex = item.id
-        this.showChildNav(item)
-      })
+        this.showChildNav(item);
+      });
 
-      console.log(this.currentChildIndex)
+      console.log(this.currentChildIndex);
     },
     toPage(citem) {
-      console.log(citem.cid)
-      this.currentChildIndex = citem.cid
-      console.log(this.currentChildIndex)
-      this.$router.push(citem.path)
+      console.log(citem.cid);
+      this.currentChildIndex = citem.cid;
+      console.log(this.currentChildIndex);
+      this.$router.push(citem.path);
     }
   },
   created() {
-    this.checkCurrentIndex(this.$route.path)
+    this.checkCurrentIndex(this.$route.path);
   }
-}
+};
 </script>
 <style lang="less" scoped>
 .children-aside {
