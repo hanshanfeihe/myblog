@@ -5,8 +5,8 @@
 </template>
 <script>
 export default {
-  name: 'Footer'
-}
+  name: "Footer"
+};
 </script>
 <style lang="less" scoped>
 #footer {
@@ -18,7 +18,7 @@ export default {
   width: 100%;
   height: 60px;
   margin-top: 20px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   // color: #fff;
   text-align: center;
   background-color: #ededed;

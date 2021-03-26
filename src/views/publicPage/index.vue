@@ -3,10 +3,16 @@
     <Header></Header>
     <!-- 内容 start -->
     <main>
-      <div class="left"><router-view /></div>
+      <div class="category">
+        <category-list />
+      </div>
+      <keep-alive exclude="Header">
+        <div class="left"><router-view /></div>
+      </keep-alive>
       <div class="right info">
         <bloger-info></bloger-info>
         <new-article></new-article>
+        <tag-list></tag-list>
       </div>
     </main>
     <!-- 内容 end -->
@@ -18,6 +24,8 @@ import Header from "../../components/public/header";
 import myFooter from "../../components/public/footer";
 import blogerInfo from "../../components/public/blogerInfo.vue";
 import newArticle from "../../components/public/newArticle.vue";
+import tagList from "../../components/public/tag_container.vue";
+import categoryList from "../../components/public/category.vue";
 export default {
   name: "Public",
   data() {
@@ -27,7 +35,9 @@ export default {
     Header,
     myFooter,
     blogerInfo,
-    newArticle
+    newArticle,
+    tagList,
+    categoryList
   },
   watch: {
     // $route() {
@@ -51,12 +61,22 @@ export default {
 }
 main {
   display: flex;
-  justify-content: space-between;
+  padding: 0 10px;
+  justify-content: start;
   width: 100%;
   height: 100%;
   min-height: calc(100vh - 60px);
+  .category {
+    margin-top: 10px;
+    background: #fff;
+    flex: 1;
+  }
+  .left {
+    flex: 3;
+  }
   .right {
-    padding: 10px;
+    padding-top: 10px;
+    flex: 1;
   }
 }
 </style>

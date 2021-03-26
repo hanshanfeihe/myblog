@@ -27,71 +27,73 @@
           }}</span>
         </span>
       </div>
+      <div class="reply">
+        <span class="reply-label name">评论数：</span>
+        {{ itemValue.Comments.length }}
+      </div>
     </div>
   </div>
 </template>
 <script>
-import marked from 'marked'
+import marked from "marked";
 export default {
-  name: 'blogItem',
+  name: "blogItem",
   data() {
     return {
       itemValue: this.item
-    }
+    };
   },
   props: {
     item: {
       type: Object,
       default: function() {
-        return {}
+        return {};
       }
     }
   },
   filters: {
     formatTime(val) {
-      return val.substr(0, 11)
+      return val.substr(0, 11);
     }
   },
   methods: {
     toDetail() {
-      this.$router.push('/article/' + this.item.id)
+      this.$router.push("/article/" + this.item.id);
     }
   },
   created() {
-    this.itemValue.blog_desc = marked(this.item.blog_desc)
+    this.itemValue.blog_desc = marked(this.item.blog_desc);
   }
-}
+};
 </script>
 <style lang="less">
 // v-html里添加样式会收到scoped作用域的影响
 .blog-item {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   // height: 350px;
   // width: 100%;
   // min-width: 950px;
   padding: 10px 20px;
   border-radius: 4px;
   background-color: #fff;
-  margin-bottom: 10px;
-  box-shadow: 0 0 16px #ccc;
+  border-bottom: 1px solid #ccc;
   .a-head {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid skyblue;
     margin-bottom: 10px;
     .publish_time {
       font-style: italic;
-      font-family: 'Times New Roman', Times, serif;
+      font-family: "Times New Roman", Times, serif;
       font-size: 20px;
       margin-right: 20px;
       color: #60c30d;
     }
   }
   .title {
-    border-left: 4px solid skyblue;
-    padding-left: 10px;
     margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: normal !important;
+    color: #21759b;
     transition: all 0.3s;
     cursor: pointer;
   }
@@ -100,12 +102,10 @@ export default {
     padding-left: 20px;
   }
   .content {
-    .desc {
-      display: flex;
-      justify-content: space-between;
-      p {
-        margin-right: 20px;
-      }
+    display: flex;
+    justify-content: start;
+    img {
+      width: 250px;
     }
   }
   .about {
@@ -118,8 +118,8 @@ export default {
       color: #ccc;
     }
   }
-}
-img {
-  width: 250px;
+  .reply {
+    color: skyblue;
+  }
 }
 </style>

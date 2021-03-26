@@ -102,6 +102,10 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 const router = new VueRouter({
   routes
 });
+router.afterEach(() => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+});
 router.beforeEach((to, from, next) => {
   if (to.name === "Home") {
     if (!window.localStorage.getItem("token")) {

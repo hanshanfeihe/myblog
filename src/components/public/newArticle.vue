@@ -2,16 +2,12 @@
   <div class="new-article">
     <div class="container">
       <div class="header">
-        最新文章
+        近期文章
       </div>
       <div class="articles">
-        <div class="artile-item">
-          <div class="title">文章标题一</div>
-          <div class="date">2021-2-18</div>
-        </div>
-        <div class="artile-item">
-          <div class="title">文章标题一</div>
-          <div class="date">2021-2-18</div>
+        <div class="artile-item" v-for="item in newArticleList" :key="item.id">
+          <div class="title" @click="toArticle(item.id)">{{ item.title }}</div>
+          <div class="date">{{ item.create_time | getPublishDate }}</div>
         </div>
       </div>
     </div>
@@ -19,20 +15,48 @@
 </template>
 <script>
 export default {
-  name: "newArticle"
+  name: "newArticle",
+  data() {
+    return {
+      newArticleList: [] //最新新文章列表
+    };
+  },
+  methods: {
+    //获取新文章
+    async getNewArticleList() {
+      const { data: res } = await this.http.get(
+        "http://127.0.0.1:3000/article/getnewarticle"
+      );
+      console.log(res.data);
+      this.newArticleList = JSON.parse(res.data);
+    },
+    toArticle(id) {
+      console.log(id);
+      this.$router.push("/article/" + id);
+    }
+  },
+  computed: {},
+  filters: {
+    getPublishDate(item) {
+      return item.substr(0, 10);
+    }
+  },
+  created() {
+    this.getNewArticleList();
+  }
 };
 </script>
 <style lang="less" scoped>
 .new-article {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  margin: 10px 0;
+  min-width: 250px;
+  margin-top: 10px;
+  background: #fff;
   .container {
     .header {
-      background-color: skyblue;
-      color: #fff;
-      height: 30px;
-      padding: 0 10px;
-      line-height: 30px;
+      padding: 10px 15px;
+      font-weight: bold;
+      font-size: 18px;
+      border-bottom: 1px solid #ccc;
     }
     // background-color: #fff;
   }
@@ -43,6 +67,14 @@ export default {
       display: flex;
       justify-content: space-between;
       .title {
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        &:hover {
+          color: skyblue;
+        }
       }
     }
   }

@@ -66,7 +66,7 @@ export default {
     checkNavId(path) {
       this.navList.forEach(item => {
         if (item.path === path) {
-          // console.log(item.id)
+          console.log(item.id);
           this.currentIndex = item.id;
         }
       });
@@ -82,6 +82,7 @@ export default {
     }
   },
   mounted() {
+    this.checkNavId(this.$route.path);
     window.addEventListener("scroll", () => {
       // console.log(document.documentElement.scrollTop)
       if (document.documentElement.scrollTop > 200) {

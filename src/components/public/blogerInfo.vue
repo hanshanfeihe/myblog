@@ -27,15 +27,16 @@ export default {
 </script>
 <style lang="less" scoped>
 .blog-info {
+  border-bottom: 1px solid #ccc;
   .header {
+    display: flex;
+    justify-content: center;
     img {
       height: 200px;
     }
   }
   padding: 10px;
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   .share-info {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     width: 100%;

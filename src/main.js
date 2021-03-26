@@ -10,11 +10,24 @@ import myButton from "./components/my-button/index.vue";
 import message from "./components/my-messagetip/index";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-// import BootStrap from 'bootstrap'
-// import 'jquery/src/jquery'
-// import 'jquery-validation'
-// import 'bootstrap/dist/js/bootstrap.min.js'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import NProgress from "nprogress"; //引入nprogress
+import "nprogress/nprogress.css"; //这个样式必须引入
+NProgress.inc(0.2);
+NProgress.configure({ easing: "ease", speed: 500, showSpinner: false });
+
+axios.interceptors.request.use(config => {
+  NProgress.start(); //展示进度条
+
+  config.headers.token = window.sessionStorage.getItem("token");
+
+  return config;
+});
+
+axios.interceptors.response.use(config => {
+  NProgress.done(); //展示进度条
+
+  return config;
+});
 Vue.config.productionTip = false;
 axios.interceptors.request.use(config => {
   const token = window.localStorage.getItem("token");
@@ -29,6 +42,9 @@ Vue.prototype.message = message;
 // Vue.use(prismcss)
 Vue.use(myButton);
 Vue.use(ElementUI);
+// router.afterEach(() => {
+//   NProgress.done();
+// });
 // Vue.use(hljs.vuePlugin)
 new Vue({
   router,
