@@ -16,6 +16,7 @@ import TagManage from "../components/admin/tagManage.vue";
 import ManageInfo from "../components/admin/manage_info.vue";
 import tagArticle from "../components/public/tagArticle.vue";
 import Archive from "../components/public/Archive.vue";
+import blogerInfo from "../components/admin/bloger_info.vue";
 // import sortPage from "../components/public/sortPage.vue";
 Vue.use(VueRouter);
 const routes = [
@@ -49,6 +50,11 @@ const routes = [
         path: "/manage_info",
         name: "manage_info",
         component: ManageInfo
+      },
+      {
+        path: "/bloger_info",
+        name: "bloger_info",
+        component: blogerInfo
       }
     ]
   },

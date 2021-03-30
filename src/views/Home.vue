@@ -94,6 +94,10 @@ export default {
         {
           path: "/manage_info",
           name: "关于本站"
+        },
+        {
+          path: "/bloger_info",
+          name: "个人信息"
         }
       ]
     };
