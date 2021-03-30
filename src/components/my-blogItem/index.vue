@@ -76,7 +76,8 @@ export default {
   padding: 10px 20px;
   border-radius: 4px;
   background-color: #fff;
-  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  // border-bottom: 1px solid #ccc;
   .a-head {
     display: flex;
     justify-content: space-between;
@@ -103,7 +104,7 @@ export default {
   }
   .content {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     img {
       width: 250px;
     }

@@ -36,8 +36,8 @@ export default {
         },
         {
           id: 2,
-          name: "分类",
-          path: "/category",
+          name: "归档",
+          path: "/archive",
           icon: "fa-sort"
         },
         {
@@ -58,10 +58,8 @@ export default {
   },
   methods: {
     toPage(item) {
-      if (item.path !== "/category") {
-        this.currentIndex = item.id;
-        this.$router.push(item.path);
-      }
+      this.currentIndex = item.id;
+      this.$router.push(item.path);
     },
     checkNavId(path) {
       this.navList.forEach(item => {
@@ -78,7 +76,7 @@ export default {
       this.checkNavId(this.$route.path);
     },
     isAbsolute() {
-      console.log(this.isAbsolute);
+      // console.log(this.isAbsolute);
     }
   },
   mounted() {
@@ -128,8 +126,11 @@ export default {
     }
   }
 }
+
 .header {
   position: relative;
+  display: flex;
+  justify-content: center;
   width: 100%;
   .nav {
     width: 100%;

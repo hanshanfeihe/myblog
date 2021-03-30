@@ -5,7 +5,12 @@
     </div>
     <!-- 标签列表 -->
     <div class="container">
-      <div class="tag" v-for="item in tagLists" :key="item.tag_id">
+      <div
+        class="tag"
+        v-for="item in tagLists"
+        :key="item.tag_id"
+        @click="toTagPage(item)"
+      >
         {{ item.tag_name }}
       </div>
     </div>
@@ -27,6 +32,9 @@ export default {
       );
       console.log(res);
       this.tagLists = JSON.parse(res.data);
+    },
+    async toTagPage(item) {
+      this.$router.push("/tag/" + item.tag_name);
     }
   },
   created() {

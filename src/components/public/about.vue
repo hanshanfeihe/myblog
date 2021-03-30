@@ -25,6 +25,8 @@ export default {
 </script>
 <style lang="less" scoped>
 #about {
+  margin: 10px;
   padding: 100px;
+  background: #fff;
 }
 </style>

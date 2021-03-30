@@ -1,14 +1,17 @@
-const webpack = require('webpack')
+const webpack = require("webpack");
 module.exports = {
-  publicPath: './',
+  publicPath: "./",
   configureWebpack: {
     plugins: [
       new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'windows.jQuery': 'jquery'
+        $: "jquery",
+        jQuery: "jquery",
+        "windows.jQuery": "jquery"
       })
     ]
+  },
+  devServer: {
+    open: true
   }
   // assetsPublicPath: '../../'
-}
+};

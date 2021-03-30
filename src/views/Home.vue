@@ -42,8 +42,13 @@
                 <span>本站信息管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="2-1">关于我</el-menu-item>
-                <el-menu-item index="2-2">关于本站</el-menu-item>
+                <el-menu-item
+                  :index="item.path"
+                  @click="toPage(item.path)"
+                  v-for="(item, index) in manage"
+                  :key="index"
+                  >{{ item.name }}</el-menu-item
+                >
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -83,6 +88,12 @@ export default {
         {
           path: "/tagmanage",
           name: "标签管理"
+        }
+      ],
+      manage: [
+        {
+          path: "/manage_info",
+          name: "关于本站"
         }
       ]
     };

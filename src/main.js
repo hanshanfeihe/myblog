@@ -15,14 +15,6 @@ import "nprogress/nprogress.css"; //这个样式必须引入
 NProgress.inc(0.2);
 NProgress.configure({ easing: "ease", speed: 500, showSpinner: false });
 
-axios.interceptors.request.use(config => {
-  NProgress.start(); //展示进度条
-
-  config.headers.token = window.sessionStorage.getItem("token");
-
-  return config;
-});
-
 axios.interceptors.response.use(config => {
   NProgress.done(); //展示进度条
 
@@ -30,6 +22,7 @@ axios.interceptors.response.use(config => {
 });
 Vue.config.productionTip = false;
 axios.interceptors.request.use(config => {
+  NProgress.start(); //展示进度条
   const token = window.localStorage.getItem("token");
   config.headers["token"] = token;
   // config.timeout = 8000;

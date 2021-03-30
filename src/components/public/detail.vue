@@ -244,7 +244,11 @@ export default {
       // console.log(typeof val)
     }
   },
-  watch: {},
+  watch: {
+    id() {
+      this.getArticleInfo();
+    }
+  },
   computed: {
     // async avatar(){
     //   const {data:res} = this.http.get()

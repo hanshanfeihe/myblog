@@ -31,32 +31,32 @@
 </template>
 <script>
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
       admin: {
-        username: '',
-        password: ''
+        username: "",
+        password: ""
       }
-    }
+    };
   },
   methods: {
     async commitAdmin() {
-      console.log(this.admin)
+      console.log(this.admin);
       if (this.admin.username && this.admin.password) {
         const { data: res } = await this.http.post(
-          'http://127.0.0.1:3000/admin/login',
+          "http://127.0.0.1:3000/admin/login",
           this.admin
-        )
-        console.log(res)
+        );
+        console.log(res);
         if (res.meta.status === 200) {
-          this.$router.push('user')
-          window.localStorage.setItem('token', res.data.token)
+          this.$router.push("manage");
+          window.localStorage.setItem("token", res.data.token);
         }
       }
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 .login {

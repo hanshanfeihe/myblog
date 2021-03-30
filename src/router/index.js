@@ -14,6 +14,9 @@ import Login from "../views/Login.vue";
 import SortManage from "../components/admin/sortManage.vue";
 import TagManage from "../components/admin/tagManage.vue";
 import ManageInfo from "../components/admin/manage_info.vue";
+import tagArticle from "../components/public/tagArticle.vue";
+import Archive from "../components/public/Archive.vue";
+// import sortPage from "../components/public/sortPage.vue";
 Vue.use(VueRouter);
 const routes = [
   {
@@ -57,9 +60,14 @@ const routes = [
     redirect: "/index",
     children: [
       {
-        path: "/index",
-        name: "publicIndex",
-        component: publicIndex
+        path: "index",
+        component: publicIndex,
+        name: "publicIndex"
+      },
+      {
+        path: "archive",
+        component: Archive,
+        name: "Archive"
       },
       {
         path: "/message",
@@ -75,6 +83,12 @@ const routes = [
         path: "/article/:id",
         component: ArticleDetail,
         name: "article/id",
+        props: true
+      },
+      {
+        path: "/tag/:name",
+        component: tagArticle,
+        name: "tag",
         props: true
       }
     ]
@@ -107,6 +121,8 @@ router.afterEach(() => {
   document.documentElement.scrollTop = 0;
 });
 router.beforeEach((to, from, next) => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
   if (to.name === "Home") {
     if (!window.localStorage.getItem("token")) {
       console.log("haha");

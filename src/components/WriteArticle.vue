@@ -180,7 +180,7 @@ export default {
       console.log(this.article.content);
     },
     async updateContent() {
-      // console.log(this.article);
+      console.log(this.article);
       const { data: res } = await this.http.put(
         "http://127.0.0.1:3000/article/updatearticle",
         this.article
