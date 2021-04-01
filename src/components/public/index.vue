@@ -14,8 +14,11 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="articleList.length"
-        v-if="articleList.length > 2"
+        :total="total"
+        :page-size="4"
+        :current-page="page"
+        @current-change="handleCurrentChange"
+        v-if="total > 2"
       >
       </el-pagination>
     </div>
@@ -29,6 +32,7 @@ export default {
   data() {
     return {
       articleList: [],
+      total: 0,
       showInfo: [
         "喜欢香港电影，喜欢粤语歌曲",
         "目前大四,正在找工作中",
@@ -39,6 +43,7 @@ export default {
       scrollY: 0,
       sort_id: null,
       sort_name: null,
+      page: 1,
       sortList: []
     };
   },
@@ -80,13 +85,38 @@ export default {
     },
     async getAllArticle() {
       const { data: res } = await this.http.get(
+        "http://127.0.0.1:3000/article/getarticle",
+        {
+          params: {
+            count: 4,
+            page: 1
+          }
+        }
+      );
+      this.articleList = JSON.parse(res.data);
+      const { data: res2 } = await this.http.get(
         "http://127.0.0.1:3000/article/getarticle"
+      );
+      this.total = JSON.parse(res2.data).length;
+      console.log(this.total);
+    },
+    async handleCurrentChange(index) {
+      this.page = index;
+      const { data: res } = await this.http.get(
+        "http://127.0.0.1:3000/article/getarticle",
+        {
+          params: {
+            count: 4,
+            page: this.page
+          }
+        }
       );
       this.articleList = JSON.parse(res.data);
     },
     getIndex(id) {
       console.log(id);
       this.sort_id = id;
+      this.page = 0;
       window.sessionStorage.setItem("sort_id", id);
       if (id) {
         this.getSortArticle(id);
@@ -95,18 +125,21 @@ export default {
       }
     },
     async getSortArticle(id) {
-      console.log(id);
+      // console.log(id);
       const { data: res } = await this.http.get(
         "http://127.0.0.1:3000/article/getsortarticle",
         {
           params: {
-            sort_id: id
+            sort_id: id,
+            count: 4,
+            page: 1
           }
         }
       );
-      console.log(res);
       this.articleList = res.data.rows;
-      // this.articleList = JSON.parse(res.data.rows);
+      this.total = res.data.count;
+      console.log(res.data.count);
+      console.log(res.data.rows);
     },
     toTop() {
       clearInterval(time1);
@@ -131,6 +164,7 @@ export default {
     });
     // console.log(this.$route.params);\
     if (window.sessionStorage.getItem("sort_id")) {
+      this.page = 1;
       if (window.sessionStorage.getItem("sort_id") !== "null") {
         console.log("获取分类文章");
         this.getSortArticle(window.sessionStorage.getItem("sort_id"));

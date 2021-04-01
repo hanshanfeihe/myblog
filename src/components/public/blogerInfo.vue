@@ -7,11 +7,23 @@
       <div class="share-info">
         <div class="username">
           <span>博主：</span>
-          Kang
+          {{ blogerInfo.name }}
         </div>
         <div class="posistion">
           <span>所在城市：</span>
           广东广州
+        </div>
+        <div class="share">
+          <div class="link">
+            <a :href="blogerInfo.git" target="_blank"
+              ><i class="fa fa-github fa-fw "></i
+            ></a>
+          </div>
+          <div class="link">
+            <a :href="blogerInfo.weibo" target="_blank">
+              <i class="fa fa-weibo fa-fw"></i
+            ></a>
+          </div>
         </div>
       </div>
     </div>
@@ -69,6 +81,25 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .share {
+    width: 100%;
+    .link {
+      text-align: center;
+      line-height: 48px;
+      background: #ccc;
+      width: 48px;
+      margin: 5px;
+      height: 48px;
+      border-radius: 50%;
+      &:hover {
+        color: #fff;
+        background: cornflowerblue;
+      }
+    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

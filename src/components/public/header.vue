@@ -43,12 +43,12 @@ export default {
         {
           id: 3,
           name: "留言墙",
-          path: "/message",
+          path: "/comment",
           icon: "fa-comments-o"
         },
         {
           id: 4,
-          name: "关于我",
+          name: "关于",
           path: "/about",
           icon: "fa-male"
         }

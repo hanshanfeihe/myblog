@@ -6,7 +6,7 @@ import WriteArticle from "../components/WriteArticle.vue";
 // import Manage from '../components/articleManage.vue'
 import Public from "../views/publicPage/index.vue";
 import publicIndex from "../components/public/index.vue";
-import Message from "../components/public/Message.vue";
+import Comment from "../components/public/comment.vue";
 import About from "../components/public/about.vue";
 import ArticleDetail from "../components/public/detail.vue";
 import ArticleManage from "../components/admin/articleManage.vue";
@@ -76,9 +76,9 @@ const routes = [
         name: "Archive"
       },
       {
-        path: "/message",
-        component: Message,
-        name: "Message"
+        path: "/comment",
+        component: Comment,
+        name: "Comment"
       },
       {
         path: "/about",
