@@ -23,14 +23,13 @@ axios.interceptors.response.use(config => {
 Vue.config.productionTip = false;
 axios.interceptors.request.use(config => {
   NProgress.start(); //展示进度条
-    // const token = window.localStorage.getItem("token");
-    // config.headers["token"] = token;
+  // const token = window.localStorage.getItem("token");
+  // config.headers["token"] = token;
   // config.timeout = 8000;
   return config;
 });
 Vue.prototype.http = axios;
 Vue.prototype.message = message;
-
 // Vue.use(Prism)
 // Vue.use(prismcss)
 Vue.use(myButton);
