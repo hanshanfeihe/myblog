@@ -29,7 +29,6 @@
       </div>
       <div class="reply">
         <span class="reply-label name">评论数：</span>
-        {{ itemValue.Comments.length }}
       </div>
     </div>
   </div>

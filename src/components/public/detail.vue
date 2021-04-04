@@ -27,155 +27,7 @@
             <div class="article-content">
               <div id="content" v-html="articleInfo.content"></div>
             </div>
-            <div class="comment">
-              <div class="comment-title">
-                文章评论
-              </div>
-              <div class="comment-body">
-                <div class="input">
-                  <!-- <div class="label-name">昵称(必填)</div>
-            <input
-              type="text"
-              name="nickname"
-              id="nickname"
-              placeholder="输入你的大名吧"
-            /> -->
-                  <div class="label-name">qq邮箱(必填)</div>
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    v-model="email"
-                    placeholder="获取用户头像"
-                  />
-                  <div class="label-name">网址(选填)</div>
-                  <input type="text" name="url" id="url" />
-                  <div class="option">
-                    <my-button
-                      type="primary"
-                      btnValue="生成用户身份"
-                      @click="setVisitor"
-                    ></my-button>
-                  </div>
-                  <div class="user-comment">
-                    <div class="user-avatar">
-                      <div class="avatar">
-                        <img :src="avatar ? avatar : userAvatar" alt="" />
-                      </div>
-                      <div class="nickname">{{ nickName }}</div>
-                    </div>
-                    <div class="textarea">
-                      <textarea
-                        name=""
-                        id="content"
-                        v-model="content"
-                        placeholder="来说几句吧"
-                      ></textarea>
-                      <my-button
-                        btnValue="发布评论"
-                        type="primary"
-                        @click="commitComment"
-                      ></my-button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="commentslist">
-                <div class="comment-title">
-                  评论列表
-                </div>
-                <div class="comment-content">
-                  <div
-                    class="comment-item"
-                    v-for="(item, index) in commentList"
-                    :key="index"
-                  >
-                    <div class="user">
-                      <div class="avatar">
-                        <img :src="item.Visitor.avatar" alt="" />
-                      </div>
-                      <div class="username">{{ item.Visitor.nickname }}</div>
-                    </div>
-                    <div class="item-content">
-                      <div class="conent">
-                        {{ item.content }}
-                      </div>
-                      <div class="post-time">
-                        {{ item.createdAt }}
-                        <span
-                          style="margin-left:10px;"
-                          @click="replyP(index, item)"
-                          >回复</span
-                        >
-                      </div>
-                      <div
-                        class="reply-content"
-                        v-for="item2 in item.Replies"
-                        :key="item2.reply_id"
-                      >
-                        <!-- 回复区域 start -->
-                        <div class="user-left">
-                          <div class="avatar from">
-                            <img :src="item2.from.avatar" alt="" />
-                            <span class="nickname">{{
-                              item2.from.nickname
-                            }}</span>
-                          </div>
-                          <div
-                            class="huifu"
-                            v-if="item2.to"
-                            style="margin:0 5px;font-size:12px;color:#000"
-                          >
-                            回复
-                          </div>
-                          <div class="avatar to" v-if="item2.to">
-                            <img :src="item2.to.avatar" alt="" />
-                            <span class="nickname">{{
-                              item2.to.nickname
-                            }}</span>
-                          </div>
-                        </div>
-                        <!-- 回复区域 end -->
-                        <div class="reply">
-                          <div class="content">
-                            {{ item2.reply_content }}
-                          </div>
-                          <div class="post-time">
-                            {{ item2.createdAt }}
-                            <span
-                              style="margin-left:10px;"
-                              @click="reply(index, item2)"
-                              >回复</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="user-comment" v-if="replyIndex === index">
-                        <div class="user-avatar">
-                          <div class="avatar">
-                            <img :src="avatar ? avatar : userAvatar" alt="" />
-                          </div>
-                          <div class="nickname">{{ nickName }}</div>
-                        </div>
-                        <div class="textarea">
-                          <textarea
-                            name=""
-                            id="content"
-                            v-model="reply_content"
-                            :placeholder="'回复@' + replyName + ':'"
-                          ></textarea>
-                          <my-button
-                            btnValue="发布评论"
-                            type="primary"
-                            @click="toReply"
-                          ></my-button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <article-comment :articleId="id"></article-comment>
           </div>
           <div class="right newArticle"></div>
         </div>
@@ -188,7 +40,7 @@ import marked from "marked";
 import hljs from "highlight.js";
 import "highlight.js";
 import "highlight.js/styles/darcula.css";
-import myButton from "../my-button/index.vue";
+import articleComment from "./comment.vue";
 // import 'highlight.js/styles/dark.css'
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -249,13 +101,13 @@ export default {
       this.getArticleInfo();
     }
   },
+  components: {
+    articleComment
+  },
   computed: {
     // async avatar(){
     //   const {data:res} = this.http.get()
     // }
-  },
-  components: {
-    myButton
   },
   props: ["id"],
   methods: {

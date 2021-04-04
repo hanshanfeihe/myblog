@@ -88,6 +88,10 @@ export default {
         {
           path: "/tagmanage",
           name: "标签管理"
+        },
+        {
+          path: "/commentManage",
+          name: "留言管理"
         }
       ],
       manage: [

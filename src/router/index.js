@@ -18,6 +18,7 @@ import tagArticle from "../components/public/tagArticle.vue";
 import Archive from "../components/public/Archive.vue";
 import blogerInfo from "../components/admin/bloger_info.vue";
 // import sortPage from "../components/public/sortPage.vue";
+import commentManage from "../components/admin/comment_manage.vue";
 Vue.use(VueRouter);
 const routes = [
   {
@@ -45,6 +46,11 @@ const routes = [
         path: "/articlemanage",
         name: "ArticleManage",
         component: ArticleManage
+      },
+      {
+        path: "/commentManage",
+        name: "commentManage",
+        component: commentManage
       },
       {
         path: "/manage_info",
