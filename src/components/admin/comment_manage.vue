@@ -6,6 +6,23 @@
       <el-breadcrumb-item>博客管理</el-breadcrumb-item>
       <el-breadcrumb-item>留言管理</el-breadcrumb-item>
     </el-breadcrumb>
+    <div class="select" style="margin:10px 0">
+      <el-select
+        v-model="id"
+        placeholder="请选择所在页面"
+        filterable
+        clearable
+        @change="checkCommentList"
+      >
+        <el-option
+          v-for="item in blogList"
+          :key="item.id"
+          :label="item.title"
+          :value="item.id"
+        >
+        </el-option>
+      </el-select>
+    </div>
     <div class="table">
       <el-table
         :data="parent"
@@ -77,7 +94,7 @@
             >
             <el-popconfirm
               title="是否删除该评论？"
-              @confirm="deleteSort(scope.row.sort_id)"
+              @confirm="toDelete(scope.row)"
               @cancel="cancelDelete"
             >
               <el-button
@@ -129,6 +146,16 @@
         </span>
       </el-dialog>
     </div>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="page"
+      :page-sizes="[5, 20, 30, 40]"
+      :page-size="count"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="parseInt(total)"
+    >
+    </el-pagination>
   </div>
 </template>
 <script>
@@ -136,7 +163,9 @@ export default {
   name: "comment_manage",
   data() {
     return {
+      id: "", //页面id
       commentsList: [],
+      blogList: [],
       parent: [],
       child: [],
       editdialogVisible: false,
@@ -148,14 +177,25 @@ export default {
       articleId: "",
       to_id: "",
       p_id: "",
+      total: "",
+      flag: true,
       ruleForm() {},
       editRules() {},
-      comment: {}
+      comment: {},
+      page: 1,
+      count: 10
     };
   },
   methods: {
+    handleSizeChange(size) {
+      this.count = size;
+      this.getAllComment();
+    },
+    handleCurrentChange(page) {
+      this.page = page;
+      this.getAllComment();
+    },
     handleEdit(comment) {
-      console.log(this.comment.parentId);
       this.comment = comment;
       this.nickname = this.comment.Visitor.nickname;
       this.email = this.comment.Visitor.email;
@@ -170,7 +210,49 @@ export default {
       this.p_id = this.comment.id;
     },
     handleDelete() {},
-    deleteSort() {},
+    toDelete(comment) {
+      this.deleteCommentById(comment.id);
+      if (comment.children) {
+        this.deleteComment(comment);
+      }
+      if (this.flag === true) {
+        this.$message.success("删除成功");
+        this.getAllComment();
+      } else {
+        this.$$message.error("删除失败");
+        this.getAllComment();
+      }
+    },
+    deleteComment(comment) {
+      if (comment.children) {
+        for (let i = 0; i < comment.children.length; i++) {
+          this.deleteComment(comment.children[i]);
+          this.deleteCommentById(comment.children[i].id);
+        }
+      }
+    },
+    //切换页面
+    checkCommentList() {
+      this.page = 1;
+      this.count = 10;
+      this.getAllComment();
+    },
+    async deleteCommentById(id) {
+      const { data: res } = await this.http.delete(
+        "http://127.0.0.1:3000/comments/deletecommentsbyid",
+        {
+          params: {
+            id: id
+          }
+        }
+      );
+      console.log(res);
+      if (res.meta.status === 200) {
+        this.flag = true;
+      } else {
+        this.flag = false;
+      }
+    },
     async toReply() {
       let Comment = {
         content: this.reply,
@@ -203,9 +285,16 @@ export default {
     async getAllComment() {
       (this.parent = []), (this.child = []);
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/comments/getallcomments"
+        "http://127.0.0.1:3000/comments/getallcomments",
+        {
+          params: {
+            articleId: this.id,
+            count: this.count,
+            page: this.page
+          }
+        }
       );
-      console.log(res.data.rows);
+      // console.log(res.data.rows);
       this.commentsList = res.data.rows;
       this.commentsList.map(item => {
         if (item.parentId == null) {
@@ -218,7 +307,8 @@ export default {
         this.parent = this.insertNode(this.parent, item);
       });
       console.log(this.parent);
-      console.log(this.child);
+      this.total = this.parent.length;
+      // console.log(this.child);
     },
     insertNode(data, node) {
       for (let i = 0; i < data.length; i++) {
@@ -234,10 +324,24 @@ export default {
         }
       }
       return data;
+    },
+    //获取所有页面标题和id
+    async getBlogList() {
+      const { data: res } = await this.http.get(
+        "http://127.0.0.1:3000/article/getbloglist"
+      );
+      // console.log(res.data);
+      this.blogList = res.data;
+      this.blogList.unshift({
+        id: 0,
+        title: "留言墙"
+      });
+      console.log(this.blogList);
     }
   },
   created() {
     this.getAllComment();
+    this.getBlogList();
   }
 };
 </script>
