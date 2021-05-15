@@ -28,7 +28,7 @@ export default {
     //获取标签列表
     async getTagList() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/tag/gettaglists"
+        "tag/gettaglists"
       );
       console.log(res);
       this.tagLists = JSON.parse(res.data);

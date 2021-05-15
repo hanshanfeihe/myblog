@@ -47,7 +47,7 @@ export default {
     //获取博主信息
     async getBlogerInfo() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/admin/loginform"
+        "admin/loginform"
       );
       console.log(res);
       this.blogerInfo.id = res.data.id;

@@ -47,7 +47,7 @@
         <div class="label">头像上传：</div>
         <el-upload
           class="avatar-uploader"
-          action="http://127.0.0.1:3000/upload/uploadimg"
+          action="upload/uploadimg"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -82,7 +82,7 @@ export default {
     // 获取用户名和密码
     async getLoginForm() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/admin/loginform"
+        "admin/loginform"
       );
       console.log(res);
       this.loginForm.username = res.data.username;
@@ -96,7 +96,7 @@ export default {
     //修改用户名和密码
     async setLoginForm() {
       const { data: res } = await this.http.put(
-        "http://127.0.0.1:3000/admin/updateloginform",
+        "admin/updateloginform",
         {
           password: this.loginForm.password,
           username: this.loginForm.username,
@@ -113,13 +113,13 @@ export default {
     //修改展示信息
     async setBlogerForm() {
       const { data: res } = await this.http.put(
-        "http://127.0.0.1:3000/admin/setblogerinfo",
+        "admin/setblogerinfo",
         {
-          git: this.loginForm.git,
-          weibo: this.loginForm.weibo,
-          avatar: this.loginForm.avatar,
-          name: this.loginForm.name,
-          id: this.id
+          git: this.loginForm.git,  //git地址
+          weibo: this.loginForm.weibo, //微博地址
+          avatar: this.loginForm.avatar,  //博主头像
+          name: this.loginForm.name,  //博主昵称
+          id: this.id  //博主id
         }
       );
       console.log(res);

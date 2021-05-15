@@ -15,7 +15,7 @@
         <div class="label-item">
           <label for="password" class="label">密码：</label>
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             v-model="admin.password"
@@ -44,10 +44,7 @@ export default {
     async commitAdmin() {
       console.log(this.admin);
       if (this.admin.username && this.admin.password) {
-        const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/admin/login",
-          this.admin
-        );
+        const { data: res } = await this.http.post("admin/login", this.admin);
         console.log(res);
         if (res.meta.status === 200) {
           this.$router.push("manage");

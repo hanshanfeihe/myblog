@@ -30,7 +30,7 @@ export default {
   methods: {
     async getCategoryList() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/sort/getsortlists"
+        "sort/getsortlists"
       );
       this.categoryList = JSON.parse(res.data);
       console.log(this.categoryList);

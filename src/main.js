@@ -17,15 +17,17 @@ NProgress.configure({ easing: "ease", speed: 500, showSpinner: false });
 
 axios.interceptors.response.use(config => {
   NProgress.done(); //展示进度条
-
   return config;
 });
 Vue.config.productionTip = false;
+axios.defaults.baseURL = "http://112.74.42.154:3000/";
 axios.interceptors.request.use(config => {
   NProgress.start(); //展示进度条
-  // const token = window.localStorage.getItem("token");
-  // config.headers["token"] = token;
   // config.timeout = 8000;
+  var patt = /api.btstu.cn/;
+  if (!patt.test(config.url)) {
+    config.headers["token"] = window.localStorage.getItem("token");
+  }
   return config;
 });
 Vue.prototype.http = axios;

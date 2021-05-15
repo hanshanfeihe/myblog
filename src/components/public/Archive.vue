@@ -38,31 +38,25 @@ export default {
   },
   methods: {
     async getAllArticle() {
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getarticle"
-      );
+      const { data: res } = await this.http.get("article/getarticle");
       this.articleList = JSON.parse(res.data);
       console.log(this.articleList);
     },
     async getDateList() {
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/finddatesort"
-      );
+      const { data: res } = await this.http.get("article/finddatesort");
       this.dateList = JSON.parse(res.data);
       console.log(this.dateList);
       this.getDateArticle();
     },
+    //根据日期归档文章
     async getDateArticle() {
       console.log(this.dateList);
       this.dateList.forEach(async data => {
-        const { data: res } = await this.http.get(
-          "http://127.0.0.1:3000/article/findarticlebydate",
-          {
-            params: {
-              date: data.date
-            }
+        const { data: res } = await this.http.get("article/findarticlebydate", {
+          params: {
+            date: data.date //日期
           }
-        );
+        });
         console.log(res.data);
         this.articleList.push(res.data);
         console.log(this.articleList);

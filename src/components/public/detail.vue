@@ -5,23 +5,24 @@
         <div class="totop" v-if="showBtn" @click="toTop">回到顶部</div>
         <div class="detail typo">
           <div class="left articleinfo">
-            <div class="title">
-              {{ articleInfo.title }}
-            </div>
-            <div class="article-about">
-              <div class="sort">
-                <span
-                  ><i class="fa fa-book fa-fw"></i
-                  ><span style="color:skyblue;margin-left:5px;">{{
-                    sort_name
-                  }}</span></span
-                >
+            <div class="article-header">
+              <div class="title">
+                {{ articleInfo.title }}
               </div>
-              <div class="time">
-                <span>
-                  <i class="fa fa-calendar fa-fw"></i>日期：
-                  {{ articleInfo.create_time | formatTime }}</span
-                >
+              <div class="article-about">
+                <div class="sort item">
+                  <span
+                    ><i class="fa fa-book fa-fw"></i>分类：<span>{{
+                      sort_name
+                    }}</span></span
+                  >
+                </div>
+                <div class="time item">
+                  <span>
+                    <i class="fa fa-calendar fa-fw"></i>日期：
+                    {{ articleInfo.create_time | formatTime }}</span
+                  >
+                </div>
               </div>
             </div>
             <div class="article-content">
@@ -150,7 +151,7 @@ export default {
       console.log(this.replyForm);
       if (this.replyForm.reply_content) {
         const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/reply/insertreply",
+          "reply/insertreply",
           this.replyForm
         );
         if (res.meta.status === 200) {
@@ -170,7 +171,7 @@ export default {
         VisitorVId: this.v_id
       };
       const { data: res } = await this.http.post(
-        "http://127.0.0.1:3000/comment/insertcomment",
+        "comment/insertcomment",
         Comment
       );
       console.log(res);
@@ -196,7 +197,7 @@ export default {
         };
         if (this.visitor) {
           const { data: res } = await this.http.post(
-            "http://127.0.0.1:3000/visitor/insertvisitor",
+            "visitor/insertvisitor",
             this.visitor
           );
           if (res.meta.status === 200) {
@@ -212,7 +213,7 @@ export default {
     },
     async getArticleInfo() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/findarticlebyid?id=" + this.id
+        "article/findarticlebyid?id=" + this.id
       );
       console.log(JSON.parse(res.data));
       this.articleInfo = JSON.parse(res.data);
@@ -314,17 +315,34 @@ export default {
   // opacity: 0.5;
   .left {
     padding: 20px;
-    // width: auto;
-    // background-color: #fff;
-    // box-shadow: 0px 0px 16px #ccc;
     border: 1px solid #eaeaea;
+    .article-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+    }
     .title {
       font-size: 26px;
+      text-align: center;
       // color:
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
     .article-about {
+      margin: 10px 0;
       border-bottom: 1px solid skyblue;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      .time {
+        color: chocolate;
+      }
+      .sort {
+        color: cornflowerblue;
+      }
+      .item {
+        margin: 0 10px;
+      }
     }
     .article-content {
       padding-top: 20px;

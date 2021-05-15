@@ -3,6 +3,9 @@
   <div class="top">
     <div class="header" :id="isAbsolute ? 'absolute' : ''">
       <!-- 导航栏start -->
+      <div class="logo">
+        <h3><a href="/index">Kang's Blog</a></h3>
+      </div>
       <div class="nav">
         <ul>
           <li
@@ -104,45 +107,38 @@ export default {
   z-index: 9999;
   // margin-bottom: 60px;
 }
-.logo-header {
-  height: 200px;
+.top {
   width: 100%;
-  padding: 0 40px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  // background-color: aquamarine;
-  text-align: center;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(50, 50, 93, 0.5);
+  // display: flex;
   .logo {
-    a {
-      display: block;
-      text-indent: -99999rem;
-      width: 200px;
-      height: 200px;
-      background-image: url("../../assets/my-logo.png");
-      background-size: 100%;
-      background-repeat: no-repeat;
-      background-position: center center;
+    padding: 0 20px;
+    height: 60px;
+    h3 {
+      height: 60px;
+      line-height: 60px;
+      a {
+        text-decoration: none;
+      }
     }
   }
 }
-
 .header {
+  background-color: #fff;
   position: relative;
   display: flex;
-  justify-content: center;
+
+  box-shadow: 0px 0px 10px rgba(50, 50, 93, 0.5);
   width: 100%;
   .nav {
-    width: 100%;
     padding: 0 50px;
     color: black;
     font-weight: 700;
-    background-color: #fff;
     // color: rgb(202, 199, 12);
     line-height: 60px;
     // opacity: 0.2;
     height: 60px;
-    box-shadow: 0px 0px 10px rgba(50, 50, 93, 0.5);
     ul {
       display: flex;
       justify-content: flex-start;

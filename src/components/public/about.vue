@@ -15,10 +15,10 @@ export default {
     };
   },
   async created() {
-    const { data: res } = await this.http.get(
-      "http://127.0.0.1:3000/aboutinfo/getaboutinfo"
-    );
+    //获取Markdown内容
+    const { data: res } = await this.http.get("aboutinfo/getaboutinfo");
     console.log(res);
+    //Markdown内容转换
     this.content = marked(res.data[0].content);
   }
 };

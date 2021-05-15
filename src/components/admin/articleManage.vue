@@ -84,9 +84,7 @@ export default {
   filters: {},
   methods: {
     async getAllArticles() {
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getarticle"
-      );
+      const { data: res } = await this.http.get("article/getarticle");
       console.log(res);
       this.articleList = res.data;
       this.articleList = JSON.parse(this.articleList);
@@ -98,7 +96,7 @@ export default {
     },
     async articlepopConfirm(id) {
       const { data: res } = await this.http.delete(
-        "http://127.0.0.1:3000/article/deletearticle?id=" + id
+        "article/deletearticle?id=" + id
       );
       console.log(res);
       if (res.meta.status === 200) {
@@ -114,30 +112,24 @@ export default {
     },
     async handleSizeChange(count) {
       this.pageSize = count;
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getarticle/",
-        {
-          params: {
-            count: this.pageSize,
-            page: this.currentPage
-          }
+      const { data: res } = await this.http.get("article/getarticle/", {
+        params: {
+          count: this.pageSize,
+          page: this.currentPage
         }
-      );
+      });
       this.articleList = res.data;
       this.articleList = JSON.parse(this.articleList);
       console.log(this.articleList);
     },
     async handleCurrentChange(pageCount) {
       this.currentPage = pageCount;
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getarticle/",
-        {
-          params: {
-            count: this.pageSize,
-            page: this.currentPage
-          }
+      const { data: res } = await this.http.get("article/getarticle/", {
+        params: {
+          count: this.pageSize,
+          page: this.currentPage
         }
-      );
+      });
       this.articleList = res.data;
       this.articleList = JSON.parse(this.articleList);
       console.log(this.articleList);
@@ -148,7 +140,7 @@ export default {
     cancelDelete() {}
   },
   created() {
-    this.getAllArticles();
+    this.getAllArticles(); //获取所有文章
   }
 };
 </script>

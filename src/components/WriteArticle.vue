@@ -167,7 +167,7 @@ export default {
     async showContent() {
       console.log(this.article);
       const { data: res } = await this.http.post(
-        "http://127.0.0.1:3000/article/insertarticle",
+        "article/insertarticle",
         this.article
       );
       if (res.meta.status === 200) {
@@ -182,7 +182,7 @@ export default {
     async updateContent() {
       console.log(this.article);
       const { data: res } = await this.http.put(
-        "http://127.0.0.1:3000/article/updatearticle",
+        "article/updatearticle",
         this.article
       );
       console.log(res);
@@ -207,7 +207,7 @@ export default {
         let formData = new FormData();
         formData.append("file", this.imgFile);
         const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/upload/uploadimg",
+          "upload/uploadimg",
           formData
         );
         console.log(res);
@@ -221,7 +221,7 @@ export default {
     },
     async getCategoryList() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/sort/getsortlists"
+        "sort/getsortlists"
       );
       // console.log(res)
       if (res.meta.status === 200) {
@@ -231,7 +231,7 @@ export default {
     },
     async getTagList() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/tag/gettaglists"
+        "tag/gettaglists"
       );
       // console.log(res)
       if (res.meta.status === 200) {
@@ -245,7 +245,7 @@ export default {
     console.log(this.$route.params);
     if (this.$route.params.id) {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/findarticlebyid?id=" + this.id
+        "article/findarticlebyid?id=" + this.id
       );
       console.log(JSON.parse(res.data));
       this.article = JSON.parse(res.data);

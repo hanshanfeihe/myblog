@@ -144,7 +144,7 @@ export default {
     //获取分类列表数据
     async getAllSorts() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/sort/getsortlists"
+        "sort/getsortlists"
       );
       console.log(res);
       this.sortList = res.data;
@@ -165,9 +165,10 @@ export default {
       this.addSortDialogVisible = false;
       this.editdialogVisible = false;
     },
+    //更新分类
     async updateSortForm() {
       const { data: res } = await this.http.put(
-        "http://127.0.0.1:3000/sort/updatesort",
+        "sort/updatesort",
         this.sortForm
       );
       console.log(res);
@@ -185,7 +186,7 @@ export default {
     //删除分类
     async deleteSort(id) {
       const { data: res } = await this.http.delete(
-        "http://127.0.0.1:3000/sort/deletesort?id=" + id
+        "sort/deletesort?id=" + id
       );
       console.log(res);
       if (res.meta.status === 200) {
@@ -209,7 +210,7 @@ export default {
     },
     async postSortForm() {
       const { data: res } = await this.http.post(
-        "http://127.0.0.1:3000/sort/insertsort",
+        "sort/insertsort",
         this.addSortForm
       );
       if (res.meta.status === 200) {
@@ -226,7 +227,7 @@ export default {
     async handleSizeChange(count) {
       this.pageSize = count;
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/sort/getsortlists/",
+        "sort/getsortlists/",
         {
           params: {
             count: this.pageSize,
@@ -241,7 +242,7 @@ export default {
     async handleCurrentChange(pageCount) {
       this.currentPage = pageCount;
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/sort/getsortlists/",
+        "sort/getsortlists/",
         {
           params: {
             count: this.pageSize,
@@ -254,7 +255,7 @@ export default {
     }
   },
   created() {
-    this.getAllSorts();
+    this.getAllSorts();  //获取分类
   }
 };
 </script>

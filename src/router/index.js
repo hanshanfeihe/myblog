@@ -24,82 +24,82 @@ const routes = [
   {
     path: "/manage",
     name: "Home",
-    component: Home,
+    component: Home, //后台管理界面根组件
     children: [
       {
         path: "/writearticle",
         name: "WriteArticle",
-        component: WriteArticle,
+        component: WriteArticle, //写文章组件
         props: true
       },
       {
         path: "/sortManage",
         name: "SortManage",
-        component: SortManage
+        component: SortManage //分类管理组件
       },
       {
         path: "/tagManage",
         name: "TagManage",
-        component: TagManage
+        component: TagManage //标签管理组件
       },
       {
         path: "/articlemanage",
         name: "ArticleManage",
-        component: ArticleManage
+        component: ArticleManage //文章管理组件
       },
       {
         path: "/commentManage",
         name: "commentManage",
-        component: commentManage
+        component: commentManage //评论管理组件
       },
       {
         path: "/manage_info",
         name: "manage_info",
-        component: ManageInfo
+        component: ManageInfo //关于本站信息管理组件
       },
       {
         path: "/bloger_info",
         name: "bloger_info",
-        component: blogerInfo
+        component: blogerInfo //博主信息管理组件
       }
     ]
   },
   {
     path: "/",
     // name: 'public',
-    component: Public,
+    component: Public, //前台界面根组件
     // name: 'Index',
     redirect: "/index",
     children: [
       {
         path: "index",
-        component: publicIndex,
+        component: publicIndex, //网站首页
         name: "publicIndex"
       },
       {
         path: "archive",
-        component: Archive,
+        component: Archive, //文章归档
         name: "Archive"
       },
       {
         path: "/comment",
-        component: Comment,
+        component: Comment, //文章评论
         name: "Comment"
       },
       {
         path: "/about",
-        component: About,
+        component: About, //关于本站
         name: "About"
       },
       {
         path: "/article/:id",
-        component: ArticleDetail,
+        component: ArticleDetail, //文章详情
         name: "article/id",
         props: true
       },
       {
         path: "/tag/:name",
-        component: tagArticle,
+        component: tagArticle, //文章标签下显示文章
         name: "tag",
         props: true
       }

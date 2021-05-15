@@ -76,10 +76,10 @@ export default {
   },
   async created() {
     const { data: res } = await this.http.get(
-      "http://127.0.0.1:3000/article/getarticle"
+      "article/getarticle"
     );
     const { data: res2 } = await this.http.get(
-      "http://127.0.0.1:3000/sort/getsortlists"
+      "sort/getsortlists"
     );
     // console.log(res)
     console.log(JSON.parse(res2.data));

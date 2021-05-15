@@ -26,7 +26,7 @@ export default {
   },
   async created() {
     const { data: res } = await this.http.get(
-      "http://127.0.0.1:3000/article/getarticle"
+      "article/getarticle"
     );
     console.log(res);
     this.articleInfo = res.data;

@@ -31,7 +31,7 @@ export default {
     async submitInfo() {
       // console.log(this.aboutInfo);
       const { data: res } = await this.http.post(
-        "http://127.0.0.1:3000/aboutinfo/insertaboutinfo",
+        "aboutinfo/insertaboutinfo",
         {
           content: this.aboutInfo
         }
@@ -43,17 +43,18 @@ export default {
     },
     async getAboutInfo() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/aboutinfo/getaboutinfo"
+        "aboutinfo/getaboutinfo"
       );
       // console.log(res.data[0].content);
       this.aboutInfo = res.data[0].content;
       this.id = res.data[0].id;
       this.loaded = true;
     },
+    //保存关于本站信息
     async saveInfo() {
       console.log(this.id);
       const { data: res } = await this.http.put(
-        "http://127.0.0.1:3000/aboutinfo/updateaboutinfo",
+        "aboutinfo/updateaboutinfo",
         {
           content: this.aboutInfo,
           id: this.id

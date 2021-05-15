@@ -239,7 +239,7 @@ export default {
     },
     async deleteCommentById(id) {
       const { data: res } = await this.http.delete(
-        "http://127.0.0.1:3000/comments/deletecommentsbyid",
+        "comments/deletecommentsbyid",
         {
           params: {
             id: id
@@ -253,17 +253,18 @@ export default {
         this.flag = false;
       }
     },
+    //博主回复
     async toReply() {
       let Comment = {
-        content: this.reply,
-        v_id: 10,
-        parentId: this.parentId,
-        articleId: this.articleId,
-        to_id: this.to_id,
-        p_id: this.p_id
+        content: this.reply, //回复内容
+        v_id: 10,  //博主id
+        parentId: this.parentId,  //根评论id
+        articleId: this.articleId, //文章id
+        to_id: this.to_id,  //访客id
+        p_id: this.p_id   //评论id
       };
       const { data: res } = await this.http.post(
-        "http://127.0.0.1:3000/comments/insertcomments",
+        "comments/insertcomments",
         Comment
       );
       if (res.meta.status === 200) {
@@ -285,7 +286,7 @@ export default {
     async getAllComment() {
       (this.parent = []), (this.child = []);
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/comments/getallcomments",
+        "comments/getallcomments",
         {
           params: {
             articleId: this.id,
@@ -295,6 +296,7 @@ export default {
         }
       );
       // console.log(res.data.rows);
+
       this.commentsList = res.data.rows;
       this.commentsList.map(item => {
         if (item.parentId == null) {
@@ -304,12 +306,14 @@ export default {
         }
       });
       this.child.map(item => {
+        //递归实现评论嵌套
         this.parent = this.insertNode(this.parent, item);
       });
       console.log(this.parent);
       this.total = this.parent.length;
       // console.log(this.child);
     },
+  
     insertNode(data, node) {
       for (let i = 0; i < data.length; i++) {
         if (data[i].id === node.p_id) {
@@ -328,7 +332,7 @@ export default {
     //获取所有页面标题和id
     async getBlogList() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getbloglist"
+        "article/getbloglist"
       );
       // console.log(res.data);
       this.blogList = res.data;

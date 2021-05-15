@@ -38,16 +38,14 @@ export default {
   },
   props: ["name"],
   methods: {
+    //获取某标签下文章列表
     async getTagArticle() {
-      console.log(this.name);
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/gettagarticle",
-        {
-          params: {
-            tag_name: this.name
-          }
+      console.log(this.name); //输出标签名
+      const { data: res } = await this.http.get("article/gettagarticle", {
+        params: {
+          tag_name: this.name  //标签名
         }
-      );
+      });
       console.log(res);
       this.articleList = res.data.rows;
       this.count = res.data.count;

@@ -25,7 +25,7 @@ export default {
     //获取新文章
     async getNewArticleList() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getnewarticle"
+        "article/getnewarticle"
       );
       console.log(res.data);
       this.newArticleList = JSON.parse(res.data);

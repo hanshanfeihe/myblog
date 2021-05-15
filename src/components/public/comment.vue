@@ -195,7 +195,7 @@ export default {
           avatar: this.avatar
         };
         const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/visitor/insertvisitor",
+          "visitor/insertvisitor",
           this.visitor
         );
         if (res.meta.status === 200) {
@@ -210,21 +210,24 @@ export default {
         }
       }
     },
+    //发表评论
     async postComments() {
       this.qq = new RegExp(`[1-9][0-9]{4,}`).exec(this.email);
       if (this.qq) {
+        //用户头像
         this.avatar = "http://q1.qlogo.cn/g?b=qq&nk=" + this.qq + "&s=100";
         const data = await this.http.get(
           "http://api.btstu.cn/qqxt/api.php?qq=" + this.qq
         );
-        this.nickName = data.data.name;
+        this.nickName = data.data.name;  //用户昵称
+        //用户标识信息
         this.visitor = {
           nickname: this.nickName,
           email: this.email,
           avatar: this.avatar
         };
         const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/visitor/insertvisitor",
+          "visitor/insertvisitor",
           this.visitor
         );
         if (res.meta.status === 200) {
@@ -287,7 +290,7 @@ export default {
         p_id: f_id
       };
       const { data: res } = await this.http.post(
-        "http://127.0.0.1:3000/comments/insertcomments",
+        "comments/insertcomments",
         Comment
       );
       if (res.meta.status === 200) {
@@ -299,13 +302,14 @@ export default {
       }
       console.log(res);
     },
+    //添加评论
     async commitComment() {
       let Comment = {
-        content: this.content,
-        VisitorVId: this.v_id
+        content: this.content, //评论内容
+        VisitorVId: this.v_id   //用户id
       };
       const { data: res } = await this.http.post(
-        "http://127.0.0.1:3000/comment/insertcomment",
+        "comment/insertcomment",
         Comment
       );
       if (res.meta.status === 200) {
@@ -332,7 +336,7 @@ export default {
           avatar: this.avatar
         };
         const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/visitor/insertvisitor",
+          "visitor/insertvisitor",
           this.visitor
         );
         if (res.meta.status === 200) {
@@ -346,7 +350,7 @@ export default {
             console.log(this.replyForm);
             if (this.replyForm.reply_content) {
               const { data: res } = await this.http.post(
-                "http://127.0.0.1:3000/reply/insertreply",
+                "reply/insertreply",
                 this.replyForm
               );
               if (res.meta.status === 200) {
@@ -377,7 +381,7 @@ export default {
           avatar: this.avatar
         };
         const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/visitor/insertvisitor",
+          "visitor/insertvisitor",
           this.visitor
         );
         if (res.meta.status === 200) {
@@ -397,7 +401,7 @@ export default {
     //获取留言
     async getComment() {
       const { data: res } = await this.http(
-        "http://127.0.0.1:3000/comment/getcomment"
+        "comment/getcomment"
       );
       this.commentList = res.data.rows;
       console.log(res);
@@ -406,7 +410,7 @@ export default {
     async getComments() {
       console.log(this.articleId);
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/comments/getcomments",
+        "comments/getcomments",
         {
           params: {
             articleId: this.articleId === undefined ? 0 : this.articleId
@@ -431,7 +435,7 @@ export default {
           avatar: this.avatar
         };
         const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/visitor/insertvisitor",
+          "visitor/insertvisitor",
           this.visitor
         );
         if (res.meta.status === 200) {
@@ -445,7 +449,7 @@ export default {
             console.log(this.replyForm);
             if (this.replyForm.reply_content) {
               const { data: res } = await this.http.post(
-                "http://127.0.0.1:3000/reply/insertreply",
+                "reply/insertreply",
                 this.replyForm
               );
               if (res.meta.status === 200) {
@@ -475,7 +479,7 @@ export default {
           avatar: this.avatar
         };
         const { data: res } = await this.http.post(
-          "http://127.0.0.1:3000/visitor/insertvisitor",
+          "visitor/insertvisitor",
           this.visitor
         );
         if (res.meta.status === 200) {

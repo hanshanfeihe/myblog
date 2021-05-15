@@ -142,7 +142,7 @@ export default {
     //获取分类列表数据
     async getAllTags() {
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/tag/gettaglists"
+        "tag/gettaglists"
       );
       console.log(res);
       this.tagList = JSON.parse(res.data);
@@ -160,9 +160,10 @@ export default {
       this.addSortDialogVisible = false;
       this.editdialogVisible = false;
     },
+    //更新标签
     async updateSortForm() {
       const { data: res } = await this.http.put(
-        "http://127.0.0.1:3000/tag/updatetag",
+        "tag/updatetag",
         this.tagForm
       );
       console.log(res);
@@ -177,10 +178,10 @@ export default {
       this.editdialogVisible = false;
       this.getAllTags();
     },
-    //删除分类
+    //删除标签
     async deleteTag(id) {
       const { data: res } = await this.http.delete(
-        "http://127.0.0.1:3000/tag/deletetag?id=" + id
+        "tag/deletetag?id=" + id
       );
       console.log(res);
       if (res.meta.status === 200) {
@@ -202,9 +203,10 @@ export default {
     showDialog() {
       this.addTagDialogVisible = true;
     },
+    //添加标签
     async postTagForm() {
       const { data: res } = await this.http.post(
-        "http://127.0.0.1:3000/tag/inserttag",
+        "tag/inserttag",
         this.addTagForm
       );
       if (res.meta.status === 200) {
@@ -221,7 +223,7 @@ export default {
     async handleSizeChange(count) {
       this.pageSize = count;
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/tag/gettaglists",
+        "tag/gettaglists",
         {
           params: {
             count: this.pageSize,
@@ -234,7 +236,7 @@ export default {
     async handleCurrentChange(pageCount) {
       this.currentPage = pageCount;
       const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/tag/gettaglists",
+        "tag/gettaglists",
         {
           params: {
             count: this.pageSize,
@@ -246,7 +248,7 @@ export default {
     }
   },
   created() {
-    this.getAllTags();
+    this.getAllTags(); //获取所有标签
   }
 };
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div class="index">
     <div class="fixed">
+      //文章分类
       <div class="category">
         <category-list @selectedIndex="getIndex" />
       </div>
@@ -84,33 +85,25 @@ export default {
       }, 1000);
     },
     async getAllArticle() {
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getarticle",
-        {
-          params: {
-            count: 4,
-            page: 1
-          }
+      const { data: res } = await this.http.get("article/getarticle", {
+        params: {
+          count: 4,
+          page: 1
         }
-      );
+      });
       this.articleList = JSON.parse(res.data);
-      const { data: res2 } = await this.http.get(
-        "http://127.0.0.1:3000/article/getarticle"
-      );
+      const { data: res2 } = await this.http.get("article/getarticle");
       this.total = JSON.parse(res2.data).length;
       console.log(this.total);
     },
     async handleCurrentChange(index) {
       this.page = index;
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getarticle",
-        {
-          params: {
-            count: 4,
-            page: this.page
-          }
+      const { data: res } = await this.http.get("article/getarticle", {
+        params: {
+          count: 4,
+          page: this.page
         }
-      );
+      });
       this.articleList = JSON.parse(res.data);
     },
     getIndex(id) {
@@ -126,16 +119,13 @@ export default {
     },
     async getSortArticle(id) {
       // console.log(id);
-      const { data: res } = await this.http.get(
-        "http://127.0.0.1:3000/article/getsortarticle",
-        {
-          params: {
-            sort_id: id,
-            count: 4,
-            page: 1
-          }
+      const { data: res } = await this.http.get("article/getsortarticle", {
+        params: {
+          sort_id: id,
+          count: 4,
+          page: 1
         }
-      );
+      });
       this.articleList = res.data.rows;
       this.total = res.data.count;
       console.log(res.data.count);
@@ -177,9 +167,7 @@ export default {
     }
   },
   async created() {
-    const { data: res2 } = await this.http.get(
-      "http://127.0.0.1:3000/sort/getsortlists"
-    );
+    const { data: res2 } = await this.http.get("sort/getsortlists");
     // console.log(res)
     console.log(JSON.parse(res2.data));
     // console.log(JSON.stringify(res.data))

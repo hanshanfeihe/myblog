@@ -61,8 +61,8 @@ export default {
           _this.contentEditor.setValue(_this.content);
         },
         upload: {
-          url: "http://127.0.0.1:3000/upload/uploadimg",
-          linkToImgUrl: "http://127.0.0.1:3000/upload/uploadimg",
+          url: "http://112.74.42.154:3000/upload/uploadimg",
+          linkToImgUrl: "http://112.74.42.154:3000/upload/uploadimg",
           fieldName: "file",
           multiple: false,
           format(files, res) {
