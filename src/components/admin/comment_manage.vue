@@ -36,7 +36,7 @@
           align="center"
         ></el-table-column>
         <el-table-column
-          prop="Visitor.createdAt"
+          prop="createdAt"
           label="日期"
           width="220"
           align="center"
@@ -257,11 +257,11 @@ export default {
     async toReply() {
       let Comment = {
         content: this.reply, //回复内容
-        v_id: 10,  //博主id
-        parentId: this.parentId,  //根评论id
+        v_id: 10, //博主id
+        parentId: this.parentId, //根评论id
         articleId: this.articleId, //文章id
-        to_id: this.to_id,  //访客id
-        p_id: this.p_id   //评论id
+        to_id: this.to_id, //访客id
+        p_id: this.p_id //评论id
       };
       const { data: res } = await this.http.post(
         "comments/insertcomments",
@@ -285,16 +285,13 @@ export default {
     // 获取所有评论
     async getAllComment() {
       (this.parent = []), (this.child = []);
-      const { data: res } = await this.http.get(
-        "comments/getallcomments",
-        {
-          params: {
-            articleId: this.id,
-            count: this.count,
-            page: this.page
-          }
+      const { data: res } = await this.http.get("comments/getallcomments", {
+        params: {
+          articleId: this.id,
+          count: this.count,
+          page: this.page
         }
-      );
+      });
       // console.log(res.data.rows);
 
       this.commentsList = res.data.rows;
@@ -313,7 +310,7 @@ export default {
       this.total = this.parent.length;
       // console.log(this.child);
     },
-  
+
     insertNode(data, node) {
       for (let i = 0; i < data.length; i++) {
         if (data[i].id === node.p_id) {
@@ -331,9 +328,7 @@ export default {
     },
     //获取所有页面标题和id
     async getBlogList() {
-      const { data: res } = await this.http.get(
-        "article/getbloglist"
-      );
+      const { data: res } = await this.http.get("article/getbloglist");
       // console.log(res.data);
       this.blogList = res.data;
       this.blogList.unshift({

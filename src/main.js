@@ -20,7 +20,7 @@ axios.interceptors.response.use(config => {
   return config;
 });
 Vue.config.productionTip = false;
-axios.defaults.baseURL = "http://112.74.42.154:3000/";
+axios.defaults.baseURL = "http://127.0.0.1:3000/";
 axios.interceptors.request.use(config => {
   NProgress.start(); //展示进度条
   // config.timeout = 8000;

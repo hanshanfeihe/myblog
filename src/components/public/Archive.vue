@@ -6,7 +6,7 @@
     <div class="timeline">
       <div class="time" v-for="(item, index) in dateList" :key="item.date">
         <div class="date">{{ item.date | getDate }}</div>
-        <el-timeline :reverse="reverse">
+        <el-timeline>
           <el-timeline-item
             v-for="(point, id) in articleList[index]"
             :key="id"

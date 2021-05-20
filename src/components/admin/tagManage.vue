@@ -9,7 +9,7 @@
     <!-- 新增分类 -->
     <div class="options">
       <el-button icon="el-icon-plus" type="success" @click="showDialog"
-        >新增分类</el-button
+        >新增标签</el-button
       >
     </div>
     <!-- 表格渲染数据 -->
@@ -33,7 +33,7 @@
               >编辑</el-button
             >
             <el-popconfirm
-              title="是否删除该分类？"
+              title="是否删除该标签？"
               @confirm="deleteTag(scope.row.tag_id)"
               @cancel="cancelDelete"
             >
@@ -141,9 +141,7 @@ export default {
   methods: {
     //获取分类列表数据
     async getAllTags() {
-      const { data: res } = await this.http.get(
-        "tag/gettaglists"
-      );
+      const { data: res } = await this.http.get("tag/gettaglists");
       console.log(res);
       this.tagList = JSON.parse(res.data);
       this.total = JSON.parse(res.data).length;
@@ -162,10 +160,7 @@ export default {
     },
     //更新标签
     async updateSortForm() {
-      const { data: res } = await this.http.put(
-        "tag/updatetag",
-        this.tagForm
-      );
+      const { data: res } = await this.http.put("tag/updatetag", this.tagForm);
       console.log(res);
       if (res.meta.status === 200) {
         this.$message({
@@ -180,9 +175,7 @@ export default {
     },
     //删除标签
     async deleteTag(id) {
-      const { data: res } = await this.http.delete(
-        "tag/deletetag?id=" + id
-      );
+      const { data: res } = await this.http.delete("tag/deletetag?id=" + id);
       console.log(res);
       if (res.meta.status === 200) {
         this.$message({
@@ -222,28 +215,22 @@ export default {
     },
     async handleSizeChange(count) {
       this.pageSize = count;
-      const { data: res } = await this.http.get(
-        "tag/gettaglists",
-        {
-          params: {
-            count: this.pageSize,
-            page: this.currentPage
-          }
+      const { data: res } = await this.http.get("tag/gettaglists", {
+        params: {
+          count: this.pageSize,
+          page: this.currentPage
         }
-      );
+      });
       this.tagList = JSON.parse(res.data);
     },
     async handleCurrentChange(pageCount) {
       this.currentPage = pageCount;
-      const { data: res } = await this.http.get(
-        "tag/gettaglists",
-        {
-          params: {
-            count: this.pageSize,
-            page: this.currentPage
-          }
+      const { data: res } = await this.http.get("tag/gettaglists", {
+        params: {
+          count: this.pageSize,
+          page: this.currentPage
         }
-      );
+      });
       this.tagList = JSON.parse(res.data);
     }
   },

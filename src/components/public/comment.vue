@@ -176,6 +176,7 @@ export default {
         reply_content: "",
         CommentCommentId: ""
       },
+      to_email: "",
       reply: "回复"
     };
   },
@@ -219,7 +220,7 @@ export default {
         const data = await this.http.get(
           "http://api.btstu.cn/qqxt/api.php?qq=" + this.qq
         );
-        this.nickName = data.data.name;  //用户昵称
+        this.nickName = data.data.name; //用户昵称
         //用户标识信息
         this.visitor = {
           nickname: this.nickName,
@@ -262,6 +263,7 @@ export default {
       }
       console.log(item);
       this.p_id = item.id;
+      this.to_email = item.Visitor.email;
       this.f_id = item.id;
     },
     //显示子回复框
@@ -306,7 +308,7 @@ export default {
     async commitComment() {
       let Comment = {
         content: this.content, //评论内容
-        VisitorVId: this.v_id   //用户id
+        VisitorVId: this.v_id //用户id
       };
       const { data: res } = await this.http.post(
         "comment/insertcomment",
@@ -400,23 +402,18 @@ export default {
     },
     //获取留言
     async getComment() {
-      const { data: res } = await this.http(
-        "comment/getcomment"
-      );
+      const { data: res } = await this.http("comment/getcomment");
       this.commentList = res.data.rows;
       console.log(res);
     },
     //获取留言
     async getComments() {
       console.log(this.articleId);
-      const { data: res } = await this.http.get(
-        "comments/getcomments",
-        {
-          params: {
-            articleId: this.articleId === undefined ? 0 : this.articleId
-          }
+      const { data: res } = await this.http.get("comments/getcomments", {
+        params: {
+          articleId: this.articleId === undefined ? 0 : this.articleId
         }
-      );
+      });
       this.commentList = res.data.rows;
       console.log(res.data.rows);
     },
@@ -486,6 +483,7 @@ export default {
           this.visitor.v_id = res.data.v_id;
           this.v_id = res.data.v_id;
           this.replyForm.from_id = this.v_id;
+          console.log("email:" + this.to_email);
           window.localStorage.setItem("visitor", JSON.stringify(this.visitor));
           if (this.content === "") {
             this.$message.error("留言内容不能为空");

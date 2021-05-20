@@ -220,9 +220,7 @@ export default {
       console.log(this.imgFile);
     },
     async getCategoryList() {
-      const { data: res } = await this.http.get(
-        "sort/getsortlists"
-      );
+      const { data: res } = await this.http.get("sort/getsortlists");
       // console.log(res)
       if (res.meta.status === 200) {
         this.categoryList = JSON.parse(res.data);
@@ -230,9 +228,7 @@ export default {
       // console.log(this.categoryList[0].sort_id)
     },
     async getTagList() {
-      const { data: res } = await this.http.get(
-        "tag/gettaglists"
-      );
+      const { data: res } = await this.http.get("tag/gettaglists");
       // console.log(res)
       if (res.meta.status === 200) {
         this.tagList = JSON.parse(res.data);

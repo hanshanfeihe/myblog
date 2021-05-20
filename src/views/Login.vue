@@ -49,6 +49,8 @@ export default {
         if (res.meta.status === 200) {
           this.$router.push("manage");
           window.localStorage.setItem("token", res.data.token);
+        } else {
+          this.$message.error("登录账号或密码错误，请重试");
         }
       }
     }

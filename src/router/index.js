@@ -25,6 +25,7 @@ const routes = [
     path: "/manage",
     name: "Home",
     component: Home, //后台管理界面根组件
+    redirect: "/writearticle",
     children: [
       {
         path: "/writearticle",

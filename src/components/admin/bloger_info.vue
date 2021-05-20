@@ -56,7 +56,7 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
         <div class="options" style="margin:10px 0;">
-          <el-button type="primary" @click="setBlogerForm">报存</el-button>
+          <el-button type="primary" @click="setBlogerForm">保存</el-button>
         </div>
       </div>
     </div>
@@ -81,9 +81,7 @@ export default {
   methods: {
     // 获取用户名和密码
     async getLoginForm() {
-      const { data: res } = await this.http.get(
-        "admin/loginform"
-      );
+      const { data: res } = await this.http.get("admin/loginform");
       console.log(res);
       this.loginForm.username = res.data.username;
       this.loginForm.password = res.data.password;
@@ -95,14 +93,11 @@ export default {
     },
     //修改用户名和密码
     async setLoginForm() {
-      const { data: res } = await this.http.put(
-        "admin/updateloginform",
-        {
-          password: this.loginForm.password,
-          username: this.loginForm.username,
-          id: this.id
-        }
-      );
+      const { data: res } = await this.http.put("admin/updateloginform", {
+        password: this.loginForm.password,
+        username: this.loginForm.username,
+        id: this.id
+      });
       console.log(res);
       if (res.meta.status === 200) {
         this.$message.success("修改成功");
@@ -112,16 +107,13 @@ export default {
     },
     //修改展示信息
     async setBlogerForm() {
-      const { data: res } = await this.http.put(
-        "admin/setblogerinfo",
-        {
-          git: this.loginForm.git,  //git地址
-          weibo: this.loginForm.weibo, //微博地址
-          avatar: this.loginForm.avatar,  //博主头像
-          name: this.loginForm.name,  //博主昵称
-          id: this.id  //博主id
-        }
-      );
+      const { data: res } = await this.http.put("admin/setblogerinfo", {
+        git: this.loginForm.git, //git地址
+        weibo: this.loginForm.weibo, //微博地址
+        avatar: this.loginForm.avatar, //博主头像
+        name: this.loginForm.name, //博主昵称
+        id: this.id //博主id
+      });
       console.log(res);
       if (res.meta.status === 200) {
         this.$message.success("修改成功");

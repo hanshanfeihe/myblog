@@ -24,10 +24,8 @@ export default {
   methods: {
     //获取新文章
     async getNewArticleList() {
-      const { data: res } = await this.http.get(
-        "article/getnewarticle"
-      );
-      console.log(res.data);
+      const { data: res } = await this.http.get("article/getnewarticle");
+      // console.log(res.data);
       this.newArticleList = JSON.parse(res.data);
     },
     toArticle(id) {

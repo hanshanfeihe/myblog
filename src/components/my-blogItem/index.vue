@@ -27,9 +27,6 @@
           }}</span>
         </span>
       </div>
-      <div class="reply">
-        <span class="reply-label name">评论数：</span>
-      </div>
     </div>
   </div>
 </template>

@@ -96,15 +96,29 @@ export default {
       this.total = JSON.parse(res2.data).length;
       console.log(this.total);
     },
+
     async handleCurrentChange(index) {
       this.page = index;
-      const { data: res } = await this.http.get("article/getarticle", {
-        params: {
-          count: 4,
-          page: this.page
-        }
-      });
-      this.articleList = JSON.parse(res.data);
+      this.toTop();
+      console.log(this.sort_id);
+      if (!this.sort_id) {
+        const { data: res } = await this.http.get("article/getarticle", {
+          params: {
+            count: 4,
+            page: this.page
+          }
+        });
+        this.articleList = JSON.parse(res.data);
+      } else {
+        const { data: res } = await this.http.get("article/getsortarticle", {
+          params: {
+            sort_id: this.sort_id,
+            count: 4,
+            page: this.page
+          }
+        });
+        this.articleList = res.data.rows;
+      }
     },
     getIndex(id) {
       console.log(id);
